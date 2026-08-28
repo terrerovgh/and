@@ -1,0 +1,33 @@
+---
+interface Props {
+  id: string;
+  eyebrow?: string;
+  title: string;
+  subtitle?: string;
+  align?: 'left' | 'center';
+}
+
+const { id, eyebrow, title, subtitle, align = 'left' } = Astro.props;
+const isCenter = align === 'center';
+---
+
+<section id={id} class="w-full max-w-6xl mx-auto px-4 sm:px-6 md:px-8 py-16 sm:py-20 scroll-mt-24">
+  <div class={isCenter ? 'text-center' : ''}>
+    {eyebrow && (
+      <p class="font-mono text-[10px] sm:text-xs uppercase tracking-[0.3em] text-white/50 mb-3">
+        {eyebrow}
+      </p>
+    )}
+    <h2 class="text-3xl sm:text-4xl md:text-5xl font-extrabold tracking-tight text-white font-mono uppercase">
+      {title}
+    </h2>
+    {subtitle && (
+      <p class={`mt-4 text-base sm:text-lg text-white/70 max-w-2xl leading-relaxed ${isCenter ? 'mx-auto' : ''}`}>
+        {subtitle}
+      </p>
+    )}
+  </div>
+  <div class="mt-10 sm:mt-12">
+    <slot />
+  </div>
+</section>

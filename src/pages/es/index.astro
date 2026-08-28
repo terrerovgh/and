@@ -1,0 +1,235 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import Header from '../../components/Header.astro';
+import Footer from '../../components/Footer.astro';
+import Section from '../../components/Section.astro';
+import ServiceCard from '../../components/ServiceCard.astro';
+
+const services = [
+  {
+    title: 'Remodelación',
+    description: 'Renovaciones de casa completa o por habitación. Cocinas, baños y áreas sociales diseñadas para cómo vives realmente.',
+  },
+  {
+    title: 'Ampliaciones',
+    description: 'Suma espacio con un cuarto nuevo, garaje, sunroom o segundo piso — integrado al diseño existente.',
+  },
+  {
+    title: 'Techos',
+    description: 'Re-techos, reparaciones y daños por tormentas. Teja asfáltica y metal, instalados bajo el código actual de Georgia.',
+  },
+  {
+    title: 'Pintura',
+    description: 'Pintura interior y exterior con preparación, imprimación y acabados que resisten el clima del sur de Georgia.',
+  },
+  {
+    title: 'Pisos',
+    description: 'Madera, laminado, LVP y baldosa. Demolición, reparación de subsuelo e instalación bien hecha desde el inicio.',
+  },
+  {
+    title: 'Decks',
+    description: 'Construcción nueva, reemplazo y reparaciones. Madera tratada, composite y madera dura con líneas limpias y bases sólidas.',
+  },
+];
+
+const area = [
+  'Valdosta', 'Hahira', 'Lake Park', 'Quitman', 'Adel',
+  'Tifton', 'Moultrie', 'Thomasville', 'Tallahassee', 'Nashville',
+];
+
+const serviceLd = {
+  '@context': 'https://schema.org',
+  '@type': 'ItemList',
+  itemListElement: services.map((s, i) => ({
+    '@type': 'ListItem',
+    position: i + 1,
+    name: s.title,
+    description: s.description,
+  })),
+};
+---
+<Layout
+  lang="es"
+  title="All Needs Discount LLC | Remodelación y Construcción en el Sur de Georgia"
+  description="Remodelación y construcción residencial con licencia en el sur de Georgia. Remodelación, ampliaciones, techos, pintura, pisos y decks. Valdosta, GA. Llama al 678-622-1776 para un estimado gratis."
+  path="/es/"
+>
+  <Header lang="es" currentPath="/es/" />
+
+  <main id="main" class="text-white">
+    <!-- HERO -->
+    <section
+      id="home"
+      class="w-full max-w-6xl mx-auto px-4 sm:px-6 md:px-8 pt-16 sm:pt-24 pb-20 sm:pb-28 text-center scroll-mt-24"
+      aria-labelledby="hero-title"
+    >
+      <p class="font-mono text-[10px] sm:text-xs uppercase tracking-[0.4em] text-white/50 mb-6">
+        Sur de Georgia · Con licencia · Asegurado
+      </p>
+      <h1
+        id="hero-title"
+        class="text-4xl sm:text-6xl md:text-7xl font-extrabold tracking-tight font-mono uppercase leading-[1.05]"
+      >
+        All Needs Discount<br />LLC
+      </h1>
+      <p class="mt-6 text-lg sm:text-2xl text-white/80 font-light max-w-2xl mx-auto leading-relaxed">
+        Remodelación y construcción residencial, hecha con cuidado. Una llamada, una cuadrilla, un solo contacto desde la cotización hasta la entrega final.
+      </p>
+      <div class="mt-10 flex flex-col sm:flex-row items-center justify-center gap-4">
+        <a
+          href="tel:+16786221776"
+          class="font-mono text-sm uppercase tracking-widest border border-white px-6 py-3 hover:bg-white hover:text-[#081d33] transition-colors w-full sm:w-auto"
+          aria-label="Llamar a All Needs Discount al 678-622-1776"
+        >
+          Llamar 678 622 1776
+        </a>
+        <a
+          href="#contact"
+          class="font-mono text-sm uppercase tracking-widest text-white/80 hover:text-white border-b border-white/40 hover:border-white pb-1 transition-colors"
+        >
+          Solicitar cotización →
+        </a>
+      </div>
+    </section>
+
+    <!-- ABOUT -->
+    <Section
+      id="about"
+      eyebrow="Nosotros"
+      title="Construido sobre referidos, no sobre anuncios."
+      subtitle="Somos una cuadrilla pequeña, operada por el dueño, sirviendo al sur de Georgia. Cada trabajo se cotiza, agenda y supervisa directamente — sin subcontratistas no aprobados, sin líneas misteriosas en la factura."
+    >
+      <div class="grid gap-6 sm:grid-cols-3 border-t border-white/15 pt-10" role="list">
+        <div role="listitem">
+          <p class="font-mono text-3xl sm:text-4xl text-white font-bold" aria-label="Más de quince años de experiencia en el oficio">15+</p>
+          <p class="mt-2 text-sm text-white/60 font-mono uppercase tracking-widest">Años de experiencia en el oficio</p>
+        </div>
+        <div role="listitem">
+          <p class="font-mono text-3xl sm:text-4xl text-white font-bold" aria-label="El dueño está presente en cada obra">100%</p>
+          <p class="mt-2 text-sm text-white/60 font-mono uppercase tracking-widest">El dueño en cada obra</p>
+        </div>
+        <div role="listitem">
+          <p class="font-mono text-3xl sm:text-4xl text-white font-bold">Detallada</p>
+          <p class="mt-2 text-sm text-white/60 font-mono uppercase tracking-widest">Cotización por escrito, sin sorpresas</p>
+        </div>
+      </div>
+    </Section>
+
+    <!-- SERVICES -->
+    <Section
+      id="services"
+      eyebrow="Lo que hacemos"
+      title="Servicios"
+      subtitle="Seis oficios bajo un mismo techo. Alcances agrupados, un solo responsable, menos tiempo persiguiendo contratistas."
+    >
+      <div class="grid gap-5 sm:grid-cols-2 lg:grid-cols-3" role="list">
+        {services.map((service, i) => (
+          <div role="listitem">
+            <ServiceCard
+              index={`0${i + 1}`}
+              title={service.title}
+              description={service.description}
+            />
+          </div>
+        ))}
+      </div>
+      <script type="application/ld+json" set:html={JSON.stringify(serviceLd)} />
+    </Section>
+
+    <!-- SERVICE AREA -->
+    <Section
+      id="area"
+      eyebrow="Área de servicio"
+      title="Sur de Georgia y más allá."
+      subtitle="Con base en el área de Valdosta, viajamos por el proyecto adecuado. Si no sabes si estás dentro del rango, solo pregunta."
+    >
+      <ul class="flex flex-wrap gap-3" aria-label="Ciudades atendidas en el sur de Georgia">
+        {area.map(city => (
+          <li class="font-mono text-xs uppercase tracking-widest border border-white/20 px-4 py-2 text-white/80">
+            {city}
+          </li>
+        ))}
+      </ul>
+    </Section>
+
+    <!-- CONTACT -->
+    <Section
+      id="contact"
+      eyebrow="Contacto"
+      title="Hablemos de tu proyecto."
+      subtitle="Envíanos algunos detalles y te respondemos en menos de un día hábil con un estimado gratis y sin compromiso."
+    >
+      <div class="grid gap-8 lg:grid-cols-2 border-t border-white/15 pt-10">
+        <div class="space-y-5" itemscope itemtype="https://schema.org/PostalAddress">
+          <meta itemprop="addressLocality" content="Valdosta" />
+          <meta itemprop="addressRegion" content="GA" />
+          <meta itemprop="addressCountry" content="US" />
+          <a
+            href="tel:+16786221776"
+            class="block font-mono text-2xl sm:text-3xl text-white hover:opacity-80 transition-opacity"
+            itemprop="telephone"
+          >
+            678 622 1776
+          </a>
+          <a
+            href="mailto:allneedsdiscount1@gmail.com"
+            class="block font-mono text-base sm:text-lg text-white/80 hover:text-white break-all transition-colors"
+          >
+            allneedsdiscount1@gmail.com
+          </a>
+          <p class="font-mono text-sm text-white/60">
+            Lun – Sáb · 7:00 AM – 6:00 PM<br />
+            Valdosta, GA · sirviendo la región
+          </p>
+        </div>
+
+        <form
+          action="mailto:allneedsdiscount1@gmail.com"
+          method="post"
+          enctype="text/plain"
+          class="space-y-4"
+          aria-label="Solicitar cotización de proyecto"
+        >
+          <label class="block">
+            <span class="font-mono text-[10px] uppercase tracking-widest text-white/60">Nombre</span>
+            <input
+              type="text"
+              name="name"
+              required
+              autocomplete="name"
+              class="mt-1 w-full bg-transparent border border-white/30 focus:border-white px-3 py-2 text-white font-sans outline-none transition-colors"
+            />
+          </label>
+          <label class="block">
+            <span class="font-mono text-[10px] uppercase tracking-widest text-white/60">Teléfono</span>
+            <input
+              type="tel"
+              name="phone"
+              required
+              autocomplete="tel"
+              inputmode="tel"
+              class="mt-1 w-full bg-transparent border border-white/30 focus:border-white px-3 py-2 text-white font-sans outline-none transition-colors"
+            />
+          </label>
+          <label class="block">
+            <span class="font-mono text-[10px] uppercase tracking-widest text-white/60">Proyecto</span>
+            <textarea
+              name="project"
+              rows="4"
+              required
+              class="mt-1 w-full bg-transparent border border-white/30 focus:border-white px-3 py-2 text-white font-sans outline-none transition-colors resize-y"
+            ></textarea>
+          </label>
+          <button
+            type="submit"
+            class="font-mono text-sm uppercase tracking-widest border border-white px-6 py-3 text-white hover:bg-white hover:text-[#081d33] transition-colors w-full sm:w-auto"
+          >
+            Enviar
+          </button>
+        </form>
+      </div>
+    </Section>
+  </main>
+
+  <Footer lang="es" />
+</Layout>

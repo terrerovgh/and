@@ -1,0 +1,77 @@
+---
+interface Props {
+  lang: 'en' | 'es';
+  currentPath: string;
+}
+
+const { lang, currentPath } = Astro.props;
+
+const homeHref = lang === 'es' ? '/es/#home' : '/#home';
+const baseHref = lang === 'es' ? '/es' : '/';
+
+const nav = lang === 'es'
+  ? [
+      { href: '#home', label: 'Inicio' },
+      { href: '#about', label: 'Nosotros' },
+      { href: '#services', label: 'Servicios' },
+      { href: '#area', label: 'Área' },
+      { href: '#contact', label: 'Contacto' },
+    ]
+  : [
+      { href: '#home', label: 'Home' },
+      { href: '#about', label: 'About' },
+      { href: '#services', label: 'Services' },
+      { href: '#area', label: 'Service Area' },
+      { href: '#contact', label: 'Contact' },
+    ];
+
+const otherLang = lang === 'es' ? 'en' : 'es';
+const otherHref = lang === 'es' ? '/' : '/es/';
+const otherLabel = lang === 'es' ? 'EN' : 'ES';
+---
+
+<header class="w-full border-b border-white/15 bg-[#081d33]/85 backdrop-blur-sm sticky top-0 z-50">
+  <div class="max-w-6xl mx-auto px-4 sm:px-6 md:px-8 py-4 flex items-center justify-between gap-4">
+    <a href={homeHref} class="flex items-center gap-3 group" aria-label="All Needs Discount LLC home">
+      <img
+        src="/logo-white.svg"
+        alt="All Needs Discount LLC"
+        class="h-9 w-auto"
+        width="135"
+        height="36"
+        loading="eager"
+      />
+      <span class="hidden sm:inline text-white font-mono font-bold tracking-wider text-sm uppercase group-hover:opacity-80">
+        All Needs Discount
+      </span>
+    </a>
+
+    <nav class="hidden md:flex items-center gap-7 font-mono text-xs uppercase tracking-widest text-white/70" aria-label={lang === 'es' ? 'Navegación principal' : 'Main navigation'}>
+      {nav.map(item => (
+        <a href={item.href} class="hover:text-white transition-colors">{item.label}</a>
+      ))}
+    </nav>
+
+    <div class="flex items-center gap-3">
+      <a
+        href={otherHref}
+        class="text-white/60 hover:text-white font-mono text-xs uppercase tracking-widest border border-white/20 hover:border-white/50 px-2.5 py-1 rounded transition-colors"
+        aria-label={`Switch to ${otherLabel}`}
+      >
+        {otherLabel}
+      </a>
+      <a
+        href="#contact"
+        class="hidden sm:inline-flex items-center text-white font-mono text-xs uppercase tracking-widest border border-white px-3 py-1.5 rounded hover:bg-white hover:text-[#081d33] transition-colors"
+      >
+        {lang === 'es' ? 'Cotizar' : 'Get a Quote'}
+      </a>
+    </div>
+  </div>
+
+  <nav class="md:hidden flex items-center justify-center gap-4 pb-3 font-mono text-[10px] uppercase tracking-widest text-white/70 overflow-x-auto" aria-label={lang === 'es' ? 'Navegación móvil' : 'Mobile navigation'}>
+    {nav.map(item => (
+      <a href={item.href} class="hover:text-white transition-colors whitespace-nowrap">{item.label}</a>
+    ))}
+  </nav>
+</header>

@@ -1,0 +1,5 @@
+# Cloudflare Pages redirects
+# https://developers.cloudflare.com/pages/configuration/redirects/
+
+# Trailing-slash normalization (Pages serves from /es/index.html as /es/)
+/es /es/ 301
