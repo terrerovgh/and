@@ -12,7 +12,7 @@ Static bilingual site (EN/ES) for All Needs Discount LLC, built with Astro 5 + T
 - **Security headers** (HSTS, X-Frame-Options, X-Content-Type-Options, Permissions-Policy, Referrer-Policy)
 - **A11y**: skip-to-content link, focus-visible outlines, `aria-label`s on landmarks, `prefers-reduced-motion`, `loading="lazy"` on below-the-fold images
 - **Sitemap** auto-generated with `xhtml:link` hreflang (`@astrojs/sitemap`)
-- **`robots.txt`**, **PWA `site.webmanifest`**, **favicons** (SVG/PNG 16/32/180), **`og-image.svg`**
+- **`robots.txt`**, **PWA `site.webmanifest`**, **favicons** (SVG/PNG 16/32/180), **raster OG image** (`og/og-image.jpg`, 1200x630 — Facebook/WhatsApp no renderizan SVG)
 
 ## Local development
 
@@ -128,7 +128,8 @@ If the production domain ever changes, update `SITE_URL` in
 │   ├── robots.txt
 │   ├── site.webmanifest
 │   ├── favicon.svg, *.png, apple-touch-icon.png
-│   ├── og-image.svg        # 1200x630 social card
+│   ├── og-image.svg        # source for the raster card
+│   └── og/                 # raster OG JPEGs 1200x630 (og-image.jpg + rentals)
 │   └── logo.svg, logo-white.svg, logo-mark.svg
 └── src/
     ├── layouts/Layout.astro
@@ -146,6 +147,7 @@ If the production domain ever changes, update `SITE_URL` in
 
 1. Submit `https://allneedsdiscount.com/sitemap-index.xml` in **Google Search Console** and **Bing Webmaster Tools**.
 2. Verify both locales in GSC under **International Targeting**.
-3. Create a **Google Business Profile** for "All Needs Discount LLC" in Valdosta, GA; link to the site.
-4. Optional: claim `allneedsdiscount.com` on social platforms (FB, Instagram, Houzz, Yelp) and link the site in the bio.
-5. Re-test with [PageSpeed Insights](https://pagespeed.web.dev/) and [Lighthouse](https://developer.chrome.com/docs/lighthouse/overview) after first deploy.
+3. Create a **Google Business Profile** for "All Needs Discount LLC" (169 GA-125, Ray City, GA 31645); link to the site. Once it exists, add its URL to `sameAs` in `src/layouts/Layout.astro`.
+4. Create a **Facebook page** for the business and add its URL to `sameAs` in `src/layouts/Layout.astro` too.
+5. Optional: claim `allneedsdiscount.com` on social platforms (Instagram, Houzz, Yelp) and link the site in the bio.
+6. Re-test with [PageSpeed Insights](https://pagespeed.web.dev/) and [Lighthouse](https://developer.chrome.com/docs/lighthouse/overview) after first deploy, and validate the FAQ/LocalBusiness JSON-LD with the [Rich Results Test](https://search.google.com/test/rich-results).

@@ -11,33 +11,60 @@ import { rentals } from '../data/rentals';
 const services = [
   {
     title: 'Remodeling',
-    description: 'Whole-home and single-room renovations. Kitchens, bathrooms, and living spaces built around how you actually live.',
+    description: 'Whole-home and single-room renovations in Valdosta, Ray City, and across South Georgia. Kitchens, bathrooms, and living spaces built around how you actually live.',
   },
   {
     title: 'Additions',
-    description: 'Expand your footprint with a new bedroom, garage, sunroom, or second story — designed to match the existing structure.',
+    description: 'Expand your footprint with a new bedroom, garage, sunroom, or second story — designed to match the existing structure and current Georgia building code.',
   },
   {
     title: 'Roofing',
-    description: 'Re-roofs, repairs, and storm damage. Asphalt shingle and metal, installed to current Georgia code.',
+    description: 'Re-roofs, repairs, and storm damage restoration. Asphalt shingle and metal roofing installed to current Georgia code by a local contractor.',
   },
   {
     title: 'Painting',
-    description: 'Interior and exterior painting with proper prep, priming, and finishes that hold up to the South Georgia climate.',
+    description: 'Interior and exterior house painting with proper prep, priming, and finishes that hold up to the South Georgia heat and humidity.',
   },
   {
     title: 'Flooring',
-    description: 'Hardwood, laminate, LVP, and tile. Demolition, subfloor repair, and installation done right from the start.',
+    description: 'Hardwood, laminate, LVP, and tile floor installation. Demolition, subfloor repair, and installation done right from the start.',
   },
   {
     title: 'Decks',
-    description: 'New builds, replacements, and repairs. Pressure-treated, composite, and hardwood options with clean lines and solid footings.',
+    description: 'New deck builds, replacements, and repairs. Pressure-treated, composite, and hardwood options with clean lines and solid footings.',
   },
 ];
 
 const area = [
-  'Valdosta', 'Hahira', 'Lake Park', 'Quitman', 'Adel',
+  'Ray City', 'Valdosta', 'Hahira', 'Lake Park', 'Quitman', 'Adel',
   'Tifton', 'Moultrie', 'Thomasville', 'Tallahassee', 'Nashville',
+];
+
+const faqs = [
+  {
+    question: 'Are you licensed and insured?',
+    answer: 'Yes. All Needs Discount LLC is a licensed and insured residential remodeling and construction company based in Ray City, Georgia.',
+  },
+  {
+    question: 'Do you offer free estimates?',
+    answer: 'Yes. Send us a few details about your project and we will get back to you within one business day with a free, no-pressure written estimate.',
+  },
+  {
+    question: 'What areas do you serve?',
+    answer: 'We are based in Ray City, GA and serve Valdosta, Hahira, Lake Park, Quitman, Adel, Tifton, Moultrie, Thomasville, Nashville, and the surrounding South Georgia region.',
+  },
+  {
+    question: 'Who will work on my project?',
+    answer: 'A small, owner-operated crew. The owner is on every job site, and every job is quoted, scheduled, and overseen directly — no subcontractors you did not approve.',
+  },
+  {
+    question: 'Do you rent equipment?',
+    answer: 'Yes. We rent a trailer-mounted Mayco concrete pump and a 14.2 yd³ roll-off container. We deliver the roll-off container to your site and haul it away when you are done.',
+  },
+  {
+    question: 'What are your business hours?',
+    answer: 'Monday through Saturday, 7:00 AM to 6:00 PM.',
+  },
 ];
 
 const serviceLd = {
@@ -50,11 +77,21 @@ const serviceLd = {
     description: s.description,
   })),
 };
+
+const faqLd = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: faqs.map(f => ({
+    '@type': 'Question',
+    name: f.question,
+    acceptedAnswer: { '@type': 'Answer', text: f.answer },
+  })),
+};
 ---
 <Layout
   lang="en"
   title="All Needs Discount LLC | Remodeling & Construction in South Georgia"
-  description="Licensed residential remodeling and construction serving Valdosta and South Georgia. Remodeling, additions, roofing, painting, flooring, and decks. Request a free estimate online."
+  description="Licensed residential remodeling and construction serving Ray City, Valdosta, and South Georgia. Remodeling, additions, roofing, painting, flooring, and decks. Request a free estimate online."
   path="/"
 >
   <Header lang="en" currentPath="/" />
@@ -165,7 +202,7 @@ const serviceLd = {
       id="area"
       eyebrow="Service Area"
       title="South Georgia and beyond."
-      subtitle="Based in the Valdosta area, we travel for the right job. If you are not sure whether you are in range, just ask."
+      subtitle="Based in Ray City, GA, we travel for the right job. If you are not sure whether you are in range, just ask."
     >
       <ul class="flex flex-wrap gap-3" aria-label="Cities served in South Georgia">
         {area.map(city => (
@@ -174,6 +211,26 @@ const serviceLd = {
           </li>
         ))}
       </ul>
+    </Section>
+
+    <!-- FAQ -->
+    <Section
+      id="faq"
+      eyebrow="FAQ"
+      title="Common questions."
+      subtitle="The things homeowners ask us most, answered up front. If yours is not here, send it through the form below."
+    >
+      <div class="grid gap-x-10 gap-y-8 sm:grid-cols-2 border-t border-white/15 pt-10">
+        {faqs.map(faq => (
+          <div>
+            <h3 class="text-base sm:text-lg font-bold text-white font-mono uppercase tracking-wide">
+              {faq.question}
+            </h3>
+            <p class="mt-2 text-sm text-white/70 leading-relaxed">{faq.answer}</p>
+          </div>
+        ))}
+      </div>
+      <script type="application/ld+json" set:html={JSON.stringify(faqLd)} />
     </Section>
 
     <!-- CONTACT -->
@@ -185,8 +242,10 @@ const serviceLd = {
     >
       <div class="grid gap-8 lg:grid-cols-2 border-t border-white/15 pt-10">
         <div class="space-y-5" itemprop="address" itemscope itemtype="https://schema.org/PostalAddress">
-          <meta itemprop="addressLocality" content="Valdosta" />
+          <meta itemprop="streetAddress" content="169 GA-125" />
+          <meta itemprop="addressLocality" content="Ray City" />
           <meta itemprop="addressRegion" content="GA" />
+          <meta itemprop="postalCode" content="31645" />
           <meta itemprop="addressCountry" content="US" />
           <a
             href="mailto:allneedsdiscount1@gmail.com"
@@ -196,7 +255,7 @@ const serviceLd = {
           </a>
           <p class="font-mono text-sm text-white/60">
             Mon – Sat · 7:00 AM – 6:00 PM<br />
-            Valdosta, GA · serving the region
+            Ray City, GA · serving Valdosta and South Georgia
           </p>
           <p class="text-sm text-white/60 leading-relaxed max-w-sm">
             No phone tag. Answer a few quick questions and we will follow up with a free, no-pressure estimate.

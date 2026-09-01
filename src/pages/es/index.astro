@@ -11,33 +11,60 @@ import { rentals } from '../../data/rentals';
 const services = [
   {
     title: 'Remodelación',
-    description: 'Renovaciones de casa completa o por habitación. Cocinas, baños y áreas sociales diseñadas para cómo vives realmente.',
+    description: 'Renovaciones de casa completa o por habitación en Valdosta, Ray City y todo el sur de Georgia. Cocinas, baños y áreas sociales diseñadas para cómo vives realmente.',
   },
   {
     title: 'Ampliaciones',
-    description: 'Suma espacio con un cuarto nuevo, garaje, sunroom o segundo piso — integrado al diseño existente.',
+    description: 'Suma espacio con un cuarto nuevo, garaje, sunroom o segundo piso — integrado al diseño existente y bajo el código de construcción vigente de Georgia.',
   },
   {
     title: 'Techos',
-    description: 'Re-techos, reparaciones y daños por tormentas. Teja asfáltica y metal, instalados bajo el código actual de Georgia.',
+    description: 'Re-techos, reparaciones y restauración por daños de tormenta. Teja asfáltica y metal instalados bajo el código actual de Georgia por un contratista local.',
   },
   {
     title: 'Pintura',
-    description: 'Pintura interior y exterior con preparación, imprimación y acabados que resisten el clima del sur de Georgia.',
+    description: 'Pintura interior y exterior con preparación, imprimación y acabados que resisten el calor y la humedad del sur de Georgia.',
   },
   {
     title: 'Pisos',
-    description: 'Madera, laminado, LVP y baldosa. Demolición, reparación de subsuelo e instalación bien hecha desde el inicio.',
+    description: 'Instalación de madera, laminado, LVP y baldosa. Demolición, reparación de subsuelo e instalación bien hecha desde el inicio.',
   },
   {
     title: 'Decks',
-    description: 'Construcción nueva, reemplazo y reparaciones. Madera tratada, composite y madera dura con líneas limpias y bases sólidas.',
+    description: 'Construcción nueva, reemplazo y reparaciones de decks. Madera tratada, composite y madera dura con líneas limpias y bases sólidas.',
   },
 ];
 
 const area = [
-  'Valdosta', 'Hahira', 'Lake Park', 'Quitman', 'Adel',
+  'Ray City', 'Valdosta', 'Hahira', 'Lake Park', 'Quitman', 'Adel',
   'Tifton', 'Moultrie', 'Thomasville', 'Tallahassee', 'Nashville',
+];
+
+const faqs = [
+  {
+    question: '¿Tienen licencia y seguro?',
+    answer: 'Sí. All Needs Discount LLC es una empresa de remodelación y construcción residencial con licencia y seguro, con base en Ray City, Georgia.',
+  },
+  {
+    question: '¿Dan estimados gratis?',
+    answer: 'Sí. Cuéntanos los detalles de tu proyecto y te respondemos en menos de un día hábil con un estimado por escrito, gratis y sin compromiso.',
+  },
+  {
+    question: '¿Qué zonas atienden?',
+    answer: 'Estamos en Ray City, GA y atendemos Valdosta, Hahira, Lake Park, Quitman, Adel, Tifton, Moultrie, Thomasville, Nashville y toda la región del sur de Georgia.',
+  },
+  {
+    question: '¿Quién trabaja en mi proyecto?',
+    answer: 'Una cuadrilla pequeña operada por el dueño. El dueño está en cada obra, y cada trabajo se cotiza, agenda y supervisa directamente — sin subcontratistas que no hayas aprobado.',
+  },
+  {
+    question: '¿Rentan equipos?',
+    answer: 'Sí. Rentamos una bomba de concreto Mayco sobre trailer y un contenedor roll-off de 14.2 yd³. El contenedor lo entregamos en tu sitio y lo recogemos cuando terminas.',
+  },
+  {
+    question: '¿Cuál es su horario?',
+    answer: 'Lunes a sábado, de 7:00 AM a 6:00 PM.',
+  },
 ];
 
 const serviceLd = {
@@ -50,11 +77,21 @@ const serviceLd = {
     description: s.description,
   })),
 };
+
+const faqLd = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: faqs.map(f => ({
+    '@type': 'Question',
+    name: f.question,
+    acceptedAnswer: { '@type': 'Answer', text: f.answer },
+  })),
+};
 ---
 <Layout
   lang="es"
   title="All Needs Discount LLC | Remodelación y Construcción en el Sur de Georgia"
-  description="Remodelación y construcción residencial con licencia en el sur de Georgia. Remodelación, ampliaciones, techos, pintura, pisos y decks. Valdosta, GA. Solicita un estimado gratis en línea."
+  description="Remodelación y construcción residencial con licencia en Ray City, Valdosta y el sur de Georgia. Remodelación, ampliaciones, techos, pintura, pisos y decks. Solicita un estimado gratis en línea."
   path="/es/"
 >
   <Header lang="es" currentPath="/es/" />
@@ -165,7 +202,7 @@ const serviceLd = {
       id="area"
       eyebrow="Área de servicio"
       title="Sur de Georgia y más allá."
-      subtitle="Con base en el área de Valdosta, viajamos por el proyecto adecuado. Si no sabes si estás dentro del rango, solo pregunta."
+      subtitle="Con base en Ray City, GA, viajamos por el proyecto adecuado. Si no sabes si estás dentro del rango, solo pregunta."
     >
       <ul class="flex flex-wrap gap-3" aria-label="Ciudades atendidas en el sur de Georgia">
         {area.map(city => (
@@ -174,6 +211,26 @@ const serviceLd = {
           </li>
         ))}
       </ul>
+    </Section>
+
+    <!-- FAQ -->
+    <Section
+      id="faq"
+      eyebrow="Preguntas frecuentes"
+      title="Preguntas comunes."
+      subtitle="Lo que más nos preguntan los propietarios, respondido de frente. Si tu pregunta no está aquí, envíanla por el formulario."
+    >
+      <div class="grid gap-x-10 gap-y-8 sm:grid-cols-2 border-t border-white/15 pt-10">
+        {faqs.map(faq => (
+          <div>
+            <h3 class="text-base sm:text-lg font-bold text-white font-mono uppercase tracking-wide">
+              {faq.question}
+            </h3>
+            <p class="mt-2 text-sm text-white/70 leading-relaxed">{faq.answer}</p>
+          </div>
+        ))}
+      </div>
+      <script type="application/ld+json" set:html={JSON.stringify(faqLd)} />
     </Section>
 
     <!-- CONTACT -->
@@ -185,8 +242,10 @@ const serviceLd = {
     >
       <div class="grid gap-8 lg:grid-cols-2 border-t border-white/15 pt-10">
         <div class="space-y-5" itemscope itemtype="https://schema.org/PostalAddress">
-          <meta itemprop="addressLocality" content="Valdosta" />
+          <meta itemprop="streetAddress" content="169 GA-125" />
+          <meta itemprop="addressLocality" content="Ray City" />
           <meta itemprop="addressRegion" content="GA" />
+          <meta itemprop="postalCode" content="31645" />
           <meta itemprop="addressCountry" content="US" />
           <a
             href="mailto:allneedsdiscount1@gmail.com"
@@ -196,7 +255,7 @@ const serviceLd = {
           </a>
           <p class="font-mono text-sm text-white/60">
             Lun – Sáb · 7:00 AM – 6:00 PM<br />
-            Valdosta, GA · sirviendo la región
+            Ray City, GA · sirviendo Valdosta y el sur de Georgia
           </p>
           <p class="text-sm text-white/60 leading-relaxed max-w-sm">
             Sin llamadas ni esperas. Responde unas preguntas rápidas y te contactamos con un estimado gratis y sin compromiso.
