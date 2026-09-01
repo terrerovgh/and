@@ -71,23 +71,38 @@ The Function does two things:
    "Send Email" binding** (`env.SEND_EMAIL`), replacing the old unreliable
    `mailto:` form.
 
-Both bindings are declared in `wrangler.jsonc`. Before the first deploy where
-this needs to actually work, do these one-time steps in the Cloudflare
-dashboard for the `allneedsdiscount.com` zone:
+Both bindings are declared in `wrangler.jsonc`.
+
+**Current state (temporary):** `allneedsdiscount.com` is not yet a zone on
+this Cloudflare account — only `terrerov.com` has Email Routing enabled, and
+`allneedsdiscount1@gmail.com` is not yet a verified destination address
+there (verification was requested; check that inbox). Until both are true,
+`send_email` in `wrangler.jsonc` and `SENDER_ADDRESS`/`BUSINESS_ADDRESS` in
+`functions/api/lead.ts` are pointed at `leads@terrerov.com` →
+`terrerov@gmail.com` instead, so the Pages deploy validates and leads still
+reach a real inbox.
+
+Once `allneedsdiscount.com` is connected to this account and
+`allneedsdiscount1@gmail.com` is verified, switch both back:
 
 1. **Workers AI** — enabled by default on Cloudflare accounts; no setup
    needed beyond the `ai` binding already in `wrangler.jsonc`.
-2. **Email Routing** — go to the zone → **Email** → **Email Routing**,
-   enable it for `allneedsdiscount.com` (this also adds the required MX/SPF
-   records), then add and verify `allneedsdiscount1@gmail.com` as a
-   **destination address** (a confirmation email is sent to that inbox).
-3. The Function sends *from* `leads@allneedsdiscount.com`. That address does
-   not need to be a real mailbox — it only needs to belong to a zone that has
-   Email Routing enabled, which step 2 covers.
+2. **Email Routing** — go to the `allneedsdiscount.com` zone → **Email** →
+   **Email Routing**, enable it (this also adds the required MX/SPF
+   records), then verify `allneedsdiscount1@gmail.com` as a **destination
+   address** if it isn't already.
+3. In `wrangler.jsonc`, change `send_email[0].destination_address` back to
+   `allneedsdiscount1@gmail.com`. In `functions/api/lead.ts`, change
+   `SENDER_ADDRESS` to `leads@allneedsdiscount.com` (does not need to be a
+   real mailbox, just a zone with Email Routing enabled) and
+   `BUSINESS_ADDRESS` back to `allneedsdiscount1@gmail.com`.
 
-Until Email Routing is verified, `/api/lead` will fail on the email step and
-the wizard shows its error state with a `mailto:` fallback link — it will
-not silently drop leads.
+If the `send_email` binding ever points at an unverified destination
+address or a domain that isn't a Cloudflare zone on this account, the Pages
+deploy fails outright (this happened once — see git history). Once the
+binding is valid, `/api/lead` still fails safely at runtime if something
+else goes wrong: the wizard shows its error state with a `mailto:` fallback
+link instead of silently dropping the lead.
 
 ## Custom domain
 

@@ -18,8 +18,15 @@ interface LeadPayload {
   lang?: 'en' | 'es';
 }
 
-const SENDER_ADDRESS = 'leads@allneedsdiscount.com';
-const BUSINESS_ADDRESS = 'allneedsdiscount1@gmail.com';
+// TEMPORARY: allneedsdiscount.com is not yet a Cloudflare zone on this
+// account (only terrerov.com has Email Routing enabled), and
+// allneedsdiscount1@gmail.com is still pending verification as a Email
+// Routing destination address. Both the sender domain and the destination
+// below must match wrangler.jsonc's `send_email` binding, or the Pages
+// deploy fails validation. Switch both back once allneedsdiscount.com is
+// connected and allneedsdiscount1@gmail.com is verified.
+const SENDER_ADDRESS = 'leads@terrerov.com';
+const BUSINESS_ADDRESS = 'terrerov@gmail.com';
 
 function json(body: unknown, status = 200): Response {
   return new Response(JSON.stringify(body), {

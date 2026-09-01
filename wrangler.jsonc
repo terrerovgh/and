@@ -5,6 +5,6 @@
   "compatibility_flags": ["nodejs_compat"],
   "ai": { "binding": "AI" },
   "send_email": [
-    { "name": "SEND_EMAIL", "destination_address": "allneedsdiscount1@gmail.com" }
+    { "name": "SEND_EMAIL", "destination_address": "terrerov@gmail.com" }
   ]
 }
