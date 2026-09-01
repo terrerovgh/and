@@ -28,6 +28,11 @@ export interface RentalCopy {
   goodForTitle: string;
   goodFor: string[];
   specs: RentalSpec[];
+  /* Only for rentals where All Needs Discount delivers/collects the item
+     itself (the roll-off container) rather than the customer towing it away
+     (the concrete pump). Rendered as a short numbered list when present. */
+  howItWorksTitle?: string;
+  howItWorks?: string[];
   heroAlt: string;
   detailAlt: string;
   metaTitle: string;
@@ -111,79 +116,89 @@ export const rentals: Rental[] = [
     },
   },
   {
-    slug: 'dump-trailer',
+    slug: 'roll-off-container',
     hero: dumpTrailer01,
     detail: dumpTrailer02,
-    ogImage: '/og/rental-dump-trailer.jpg',
+    ogImage: '/og/rental-roll-off-container.jpg',
     en: {
-      name: 'Tandem-Axle Dump Trailer',
-      model: 'Panther Cargo 7x14TA Roll Off · Base configuration',
-      teaser: 'One trip where a pickup bed makes five. Load it, tow it, dump it.',
+      name: 'Roll-Off Container',
+      model: 'Panther Cargo 7x14 Roll Off · 14.2 yd³ container',
+      teaser: 'We drop it at your site, you fill it, we haul it away. No towing on your end.',
       body: [
-        "Demo debris, roofing tear-off, dirt, gravel, mulch — load it, tow it, dump it. A 10 in I-beam frame, 10 gauge steel walls and floor, and full-width rear barn doors mean one trip where a pickup bed makes five, and the hydraulic scissor lift empties it without a shovel.",
-        'Adjustable coupler with a 12k jack and spare tire mount — hitches up fast and tows steady. 235/80 R16 14-ply tires and steel fenders on both sides.',
-        'Standard equipment includes a tarp kit, lockable tool box, 17,500 lb winch, 5/8 in D-rings, DOT-approved lighting with reflective tape, and a battery with condition tester — all mounted from the factory.',
+        "This is a container rental, not a trailer rental — you don't tow anything. We deliver the roll-off container to your site with our own equipment, place it where you need it, and pick it up when you're done. All you do is fill it.",
+        'Built for job-site abuse: 10 gauge steel walls and floor on a 10 in I-beam frame, with full-width rear barn doors so you can wheelbarrow debris straight in instead of throwing it over the side.',
+        '14.2 yd³ of capacity — roughly what it takes to gut a couple of rooms or clear a mid-size roof tear-off. Call with your project and we will tell you if one container covers it or if you need a swap partway through.',
       ],
       goodForTitle: 'Good for',
       goodFor: [
         'Roofing tear-off and demolition debris',
         'Dirt, gravel, sand and stone',
         'Mulch, brush and yard cleanup',
-        'Hauling equipment and materials to the job',
-        'Cleanouts, moves and small renovations',
+        'Whole-room gut-outs and cleanouts',
+        'Moves and small renovations',
       ],
-      // Manufacturer specs for the 7x14TA base unit, from panthercargousa.com/products/rolloff
-      // (confirmed 2026-09-01). TODO: verificar con el dueño si esta unidad lleva ejes de
-      // 7k o 8k — el GVWR publicado depende de esa elección y no es visible en las fotos.
+      howItWorksTitle: 'How it works',
+      howItWorks: [
+        'Call and tell us your project and site address — we confirm the container is available and give you a rate.',
+        'We deliver and place the container at your site on the agreed date, no truck or trailer needed on your end.',
+        "Fill it at your own pace. Call when you're done and we pick it up — that's it.",
+      ],
+      // Container specs from panthercargousa.com/products/rolloff (Panther Cargo 7x14,
+      // confirmed 2026-09-01). Only specs relevant to the renter are listed — GVWR, axle
+      // rating, tires and coupler describe the delivery trailer, not the rented container,
+      // so they're intentionally left out.
       specs: [
-        { label: 'Size', value: '7 ft x 14 ft (7x14TA)' },
+        { label: 'Footprint', value: '7 ft x 14 ft' },
         { label: 'Capacity', value: '14.2 yd³' },
-        { label: 'GVWR', value: '14,000 lbs (7k axles) / 16,000 lbs (8k axles)' },
-        { label: 'Axles', value: 'Tandem' },
-        { label: 'Unloading', value: 'Hydraulic scissor lift, rear barn doors' },
-        { label: 'Frame', value: '10 in I-beam, 10 ga steel walls & floor' },
-        { label: 'Tires', value: '235/80 R16, 14-ply' },
-        { label: 'Coupler', value: 'Adjustable coupler, 12k jack, spare tire mount' },
+        { label: 'Construction', value: '10 ga steel walls & floor, 10 in I-beam frame' },
+        { label: 'Loading access', value: 'Full-width rear barn doors' },
+        { label: 'Delivery area', value: 'Valdosta and South Georgia' },
+        { label: 'Availability', value: 'Available now' },
       ],
-      heroAlt: 'Black tandem-axle hydraulic dump trailer with high solid sides, parked on a driveway at sunset.',
-      detailAlt: 'Side profile of the tandem-axle dump trailer showing the full length, spare tire and tongue jack.',
-      metaTitle: 'Dump Trailer Rental in Valdosta, GA | All Needs Discount LLC',
-      metaDescription: '7x14 tandem-axle hydraulic dump trailer for rent in Valdosta and South Georgia. 14.2 yd³, 14,000 lbs GVWR. Call 678-622-1776 for rates.',
+      heroAlt: 'Black roll-off container with high steel sides, delivered and parked on a driveway at sunset.',
+      detailAlt: 'Side profile of the roll-off container showing the full length and rear barn doors.',
+      metaTitle: 'Roll-Off Container & Dumpster Rental in Valdosta, GA | All Needs Discount LLC',
+      metaDescription: '14.2 yd³ roll-off container rental in Valdosta and South Georgia. We deliver, you fill it, we haul it away. Call 678-622-1776 for rates.',
     },
     es: {
-      name: 'Dump Trailer de Doble Eje',
-      model: 'Panther Cargo 7x14TA Roll Off · Configuración base',
-      teaser: 'Un viaje donde una camioneta hace cinco. Cargas, remolcas y volteas.',
+      name: 'Contenedor Roll-Off',
+      model: 'Panther Cargo 7x14 Roll Off · Contenedor de 14.2 yd³',
+      teaser: 'Lo dejamos en tu sitio, lo llenas, lo recogemos. No remolcas nada.',
       body: [
-        'Escombro de demolición, techo arrancado, tierra, grava, mulch — cargas, remolcas y volteas. Marco de viga I de 10 pulg, paredes y piso de acero calibre 10, y compuertas traseras tipo granero de ancho completo: un viaje donde una camioneta hace cinco, y el volteo hidráulico lo vacía sin pala.',
-        'Enganche ajustable con gato de 12k y soporte para llanta de refacción — se engancha rápido y remolca estable. Llantas 235/80 R16 de 14 lonas y guardafangos de acero en ambos lados.',
-        'De fábrica incluye kit de lona, caja de herramientas con seguro, winche de 17,500 lbs, argollas D de 5/8 pulg, luces aprobadas por el DOT con cinta reflectiva, y batería con probador de estado — todo montado de fábrica.',
+        'Esto es la renta de un contenedor, no de un remolque — no remolcas nada. Nosotros llevamos el contenedor a tu sitio con nuestro propio equipo, lo colocamos donde lo necesites, y lo recogemos cuando termines. Tú solo lo llenas.',
+        'Construido para trabajo pesado: paredes y piso de acero calibre 10 sobre un marco de viga I de 10 pulg, con compuertas traseras tipo granero de ancho completo para meter escombro con carretilla en vez de tirarlo por encima del borde.',
+        '14.2 yd³ de capacidad — más o menos lo que toma vaciar un par de cuartos o un techo mediano. Llámanos con tu proyecto y te decimos si un contenedor te alcanza o si necesitas un cambio a la mitad.',
       ],
       goodForTitle: 'Ideal para',
       goodFor: [
         'Techo arrancado y escombro de demolición',
         'Tierra, grava, arena y piedra',
         'Mulch, ramas y limpieza de jardín',
-        'Llevar equipo y material a la obra',
-        'Desalojos, mudanzas y remodelaciones pequeñas',
+        'Vaciar cuartos completos y desalojos',
+        'Mudanzas y remodelaciones pequeñas',
       ],
-      // Specs del fabricante para la unidad base 7x14TA, de panthercargousa.com/products/rolloff
-      // (confirmado 2026-09-01). TODO: verificar con el dueño si esta unidad lleva ejes de
-      // 7k u 8k — el GVWR publicado depende de esa elección y no es visible en las fotos.
+      howItWorksTitle: 'Cómo funciona',
+      howItWorks: [
+        'Llámanos y cuéntanos tu proyecto y la dirección — confirmamos disponibilidad y te damos la tarifa.',
+        'Entregamos y colocamos el contenedor en tu sitio en la fecha acordada, sin que necesites camioneta ni trailer.',
+        'Lo llenas a tu ritmo. Llámanos cuando termines y lo recogemos — así de simple.',
+      ],
+      // Specs del contenedor de panthercargousa.com/products/rolloff (Panther Cargo 7x14,
+      // confirmado 2026-09-01). Solo se listan las specs relevantes para quien renta — GVWR,
+      // ejes, llantas y enganche describen el trailer de entrega, no el contenedor rentado,
+      // así que se omiten a propósito.
       specs: [
-        { label: 'Tamaño', value: '7 x 14 pies (7x14TA)' },
+        { label: 'Dimensiones', value: '7 x 14 pies' },
         { label: 'Capacidad', value: '14.2 yd³' },
-        { label: 'GVWR', value: '14,000 lbs (ejes 7k) / 16,000 lbs (ejes 8k)' },
-        { label: 'Ejes', value: 'Doble' },
-        { label: 'Descarga', value: 'Volteo hidráulico, compuertas traseras tipo granero' },
-        { label: 'Marco', value: 'Viga I de 10 pulg, acero cal. 10 en paredes y piso' },
-        { label: 'Llantas', value: '235/80 R16, 14 lonas' },
-        { label: 'Enganche', value: 'Ajustable, gato de 12k, soporte de refacción' },
+        { label: 'Construcción', value: 'Acero cal. 10 en paredes y piso, marco de viga I de 10 pulg' },
+        { label: 'Acceso de carga', value: 'Compuertas traseras tipo granero, ancho completo' },
+        { label: 'Zona de entrega', value: 'Valdosta y el sur de Georgia' },
+        { label: 'Disponibilidad', value: 'Disponible ahora' },
       ],
-      heroAlt: 'Dump trailer negro de doble eje con volteo hidráulico y laterales altos, estacionado en una entrada al atardecer.',
-      detailAlt: 'Perfil lateral del dump trailer de doble eje mostrando el largo completo, la llanta de refacción y el gato.',
-      metaTitle: 'Renta de Dump Trailer en Valdosta, GA | All Needs Discount LLC',
-      metaDescription: 'Dump trailer de doble eje con volteo hidráulico en renta en Valdosta y el sur de Georgia. Escombro, tierra, grava, techo. Llama al 678-622-1776.',
+      heroAlt: 'Contenedor roll-off negro de laterales altos de acero, entregado y estacionado en una entrada al atardecer.',
+      detailAlt: 'Perfil lateral del contenedor roll-off mostrando el largo completo y las compuertas traseras.',
+      metaTitle: 'Renta de Contenedor Roll-Off en Valdosta, GA | All Needs Discount LLC',
+      metaDescription: 'Contenedor roll-off de 14.2 yd³ en renta en Valdosta y el sur de Georgia. Lo entregamos, lo llenas, lo recogemos. Llama al 678-622-1776.',
     },
   },
 ];

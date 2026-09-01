@@ -3,3 +3,7 @@
 
 # Trailing-slash normalization (Pages serves from /es/index.html as /es/)
 /es /es/ 301
+
+# Renamed after launch: the rented item is the container, not the delivery trailer
+/rentals/dump-trailer/ /rentals/roll-off-container/ 301
+/es/rentals/dump-trailer/ /es/rentals/roll-off-container/ 301

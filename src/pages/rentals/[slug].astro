@@ -34,6 +34,7 @@ const t = lang === 'es'
       specsTitle: 'Ficha técnica',
       ctaTitle: 'Llama para tarifas',
       ctaBody: 'No publicamos precios porque la tarifa depende de los días y de si necesitas entrega. Llámanos y te confirmamos disponibilidad y costo el mismo día. El estimado es gratis y sin compromiso.',
+      ctaBodyDelivery: 'No publicamos precios porque la tarifa depende de los días que necesites el contenedor y de qué tan lejos hay que entregarlo. Llámanos y te confirmamos disponibilidad y costo el mismo día, entrega incluida. El estimado es gratis y sin compromiso.',
       call: 'Llama 678 622 1776',
       quote: 'Solicitar cotización',
       shareTitle: 'Compartir',
@@ -49,6 +50,7 @@ const t = lang === 'es'
       specsTitle: 'Specifications',
       ctaTitle: 'Call for rates',
       ctaBody: 'We do not post prices because the rate depends on how many days you need it and whether you want it delivered. Call and we will confirm availability and cost the same day. The estimate is free and there is no pressure.',
+      ctaBodyDelivery: 'We do not post prices because the rate depends on how many days you need the container and how far we have to deliver it. Call and we will confirm availability and cost the same day, delivery included. The estimate is free and there is no pressure.',
       call: 'Call 678 622 1776',
       quote: 'Request a quote',
       shareTitle: 'Share',
@@ -167,6 +169,22 @@ const breadcrumbLd = {
           </div>
         </div>
 
+        {copy.howItWorks && copy.howItWorks.length > 0 && (
+          <div class="mt-14 border-t border-white/15 pt-10">
+            <h2 class="font-mono text-[10px] uppercase tracking-[0.3em] text-white/50 mb-6">
+              {copy.howItWorksTitle}
+            </h2>
+            <ol class="grid gap-6 sm:grid-cols-3">
+              {copy.howItWorks.map((step, i) => (
+                <li class="flex gap-4">
+                  <span class="font-mono text-2xl text-white/25 shrink-0">{`0${i + 1}`}</span>
+                  <span class="text-sm text-white/70 leading-relaxed pt-1">{step}</span>
+                </li>
+              ))}
+            </ol>
+          </div>
+        )}
+
         <!-- DETAIL IMAGE -->
         <Picture
           src={rental.detail}
@@ -190,7 +208,7 @@ const breadcrumbLd = {
           <h2 class="text-2xl sm:text-3xl font-bold text-white font-mono uppercase tracking-tight">
             {t.ctaTitle}
           </h2>
-          <p class="mt-4 text-base text-white/70 max-w-2xl leading-relaxed">{t.ctaBody}</p>
+          <p class="mt-4 text-base text-white/70 max-w-2xl leading-relaxed">{copy.howItWorks ? t.ctaBodyDelivery : t.ctaBody}</p>
           <div class="mt-8 flex flex-col sm:flex-row items-start sm:items-center gap-4">
             <a
               href="tel:+16786221776"
