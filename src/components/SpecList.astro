@@ -1,0 +1,28 @@
+---
+import type { RentalSpec } from '../data/rentals';
+
+interface Props {
+  specs: RentalSpec[];
+  title: string;
+}
+
+const { specs, title } = Astro.props;
+---
+
+<div>
+  <h2 class="font-mono text-[10px] sm:text-xs uppercase tracking-[0.3em] text-white/50 mb-5">
+    {title}
+  </h2>
+  <dl class="grid sm:grid-cols-2 gap-x-8 gap-y-5 border-t border-white/15 pt-6">
+    {specs.map(spec => (
+      <div>
+        <dt class="font-mono text-[10px] uppercase tracking-widest text-white/50">
+          {spec.label}
+        </dt>
+        <dd class="mt-1 font-mono text-sm text-white">
+          {spec.value}
+        </dd>
+      </div>
+    ))}
+  </dl>
+</div>

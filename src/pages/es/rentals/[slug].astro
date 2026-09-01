@@ -1,0 +1,251 @@
+---
+import { Picture } from 'astro:assets';
+import Layout from '../../../layouts/Layout.astro';
+import Header from '../../../components/Header.astro';
+import Footer from '../../../components/Footer.astro';
+import SpecList from '../../../components/SpecList.astro';
+import { rentals } from '../../../data/rentals';
+import type { Rental } from '../../../data/rentals';
+
+export function getStaticPaths() {
+  return rentals.map(rental => ({
+    params: { slug: rental.slug },
+    props: { rental },
+  }));
+}
+
+interface Props {
+  rental: Rental;
+}
+
+const { rental } = Astro.props;
+const lang = 'es' as const;
+const base = lang === 'es' ? '/es/' : '/';
+const copy = rental[lang];
+const path = `${base}rentals/${rental.slug}/`;
+const pageUrl = new URL(path, Astro.site).toString();
+const other = rentals.find(r => r.slug !== rental.slug)!;
+
+const t = lang === 'es'
+  ? {
+      breadcrumbHome: 'Inicio',
+      breadcrumbRentals: 'Renta',
+      available: 'Disponible ahora',
+      specsTitle: 'Ficha técnica',
+      ctaTitle: 'Llama para tarifas',
+      ctaBody: 'No publicamos precios porque la tarifa depende de los días y de si necesitas entrega. Llámanos y te confirmamos disponibilidad y costo el mismo día. El estimado es gratis y sin compromiso.',
+      call: 'Llama 678 622 1776',
+      quote: 'Solicitar cotización',
+      shareTitle: 'Compartir',
+      shareWhatsapp: 'WhatsApp',
+      shareFacebook: 'Facebook',
+      alsoTitle: 'También en renta',
+      view: 'Ver detalles',
+    }
+  : {
+      breadcrumbHome: 'Home',
+      breadcrumbRentals: 'Rentals',
+      available: 'Available now',
+      specsTitle: 'Specifications',
+      ctaTitle: 'Call for rates',
+      ctaBody: 'We do not post prices because the rate depends on how many days you need it and whether you want it delivered. Call and we will confirm availability and cost the same day. The estimate is free and there is no pressure.',
+      call: 'Call 678 622 1776',
+      quote: 'Request a quote',
+      shareTitle: 'Share',
+      shareWhatsapp: 'WhatsApp',
+      shareFacebook: 'Facebook',
+      alsoTitle: 'Also for rent',
+      view: 'View details',
+    };
+
+const shareText = `${copy.name} — All Needs Discount LLC`;
+const whatsappHref = `https://wa.me/?text=${encodeURIComponent(`${shareText} ${pageUrl}`)}`;
+const facebookHref = `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(pageUrl)}`;
+
+const productLd = {
+  '@context': 'https://schema.org',
+  '@type': 'Product',
+  name: copy.name,
+  description: copy.metaDescription,
+  image: new URL(rental.ogImage, Astro.site).toString(),
+  url: pageUrl,
+  brand: { '@type': 'Brand', name: rental.slug === 'concrete-pump' ? 'Mayco' : 'All Needs Discount LLC' },
+  offers: {
+    '@type': 'Offer',
+    url: pageUrl,
+    availability: 'https://schema.org/InStock',
+    businessFunction: 'http://purl.org/goodrelations/v1#LeaseOut',
+    areaServed: { '@type': 'City', name: 'Valdosta' },
+    seller: { '@id': 'https://allneedsdiscount.com/#organization' },
+  },
+};
+
+const breadcrumbLd = {
+  '@context': 'https://schema.org',
+  '@type': 'BreadcrumbList',
+  itemListElement: [
+    { '@type': 'ListItem', position: 1, name: t.breadcrumbHome, item: new URL(base, Astro.site).toString() },
+    { '@type': 'ListItem', position: 2, name: t.breadcrumbRentals, item: new URL(`${base}rentals/`, Astro.site).toString() },
+    { '@type': 'ListItem', position: 3, name: copy.name, item: pageUrl },
+  ],
+};
+---
+<Layout
+  lang={lang}
+  title={copy.metaTitle}
+  description={copy.metaDescription}
+  path={path}
+  image={new URL(rental.ogImage, Astro.site).toString()}
+>
+  <Header
+    lang={lang}
+    currentPath={path}
+    altHref={`${lang === 'es' ? '' : '/es'}/rentals/${rental.slug}/`}
+  />
+
+  <main id="main" class="text-white w-full">
+    <div class="w-full max-w-6xl mx-auto px-4 sm:px-6 md:px-8">
+      <nav class="pt-8" aria-label={lang === 'es' ? 'Ruta de navegación' : 'Breadcrumb'}>
+        <ol class="flex flex-wrap items-center gap-2 font-mono text-[10px] uppercase tracking-widest text-white/40">
+          <li><a href={base} class="hover:text-white transition-colors">{t.breadcrumbHome}</a></li>
+          <li aria-hidden="true">/</li>
+          <li><a href={`${base}rentals/`} class="hover:text-white transition-colors">{t.breadcrumbRentals}</a></li>
+          <li aria-hidden="true">/</li>
+          <li class="text-white/70" aria-current="page">{copy.name}</li>
+        </ol>
+      </nav>
+
+      <article class="py-12 sm:py-16">
+        <!-- HERO IMAGE -->
+        <Picture
+          src={rental.hero}
+          alt={copy.heroAlt}
+          formats={['avif', 'webp']}
+          widths={[600, 1000, 1200, 1600]}
+          quality={66}
+          sizes="(min-width: 1152px) 1088px, 100vw"
+          loading="eager"
+          fetchpriority="high"
+          class="w-full aspect-[3/2] object-cover border border-white/15"
+        />
+
+        <!-- HEADING -->
+        <header class="mt-10">
+          <p class="font-mono text-[10px] sm:text-xs uppercase tracking-[0.3em] text-white/50 mb-3">
+            {t.breadcrumbRentals}
+          </p>
+          <h1 class="text-3xl sm:text-4xl md:text-5xl font-extrabold tracking-tight text-white font-mono uppercase leading-[1.1]">
+            {copy.name}
+          </h1>
+          <p class="mt-4 font-mono text-xs uppercase tracking-widest text-white/40">
+            {copy.model}
+          </p>
+          <p class="mt-6 inline-block font-mono text-[10px] uppercase tracking-widest border border-white/20 px-3 py-1.5 text-white/80">
+            {t.available}
+          </p>
+        </header>
+
+        <!-- BODY -->
+        <div class="mt-10 grid gap-10 lg:grid-cols-3">
+          <div class="lg:col-span-2 space-y-5">
+            {copy.body.map(paragraph => (
+              <p class="text-base sm:text-lg text-white/70 leading-relaxed">{paragraph}</p>
+            ))}
+          </div>
+          <div class="border-t lg:border-t-0 lg:border-l border-white/15 pt-8 lg:pt-0 lg:pl-8">
+            <h2 class="font-mono text-[10px] uppercase tracking-[0.3em] text-white/50 mb-5">
+              {copy.goodForTitle}
+            </h2>
+            <ul class="space-y-3">
+              {copy.goodFor.map(item => (
+                <li class="flex gap-3 text-sm text-white/70 leading-relaxed">
+                  <span class="font-mono text-white/30 select-none" aria-hidden="true">—</span>
+                  <span>{item}</span>
+                </li>
+              ))}
+            </ul>
+          </div>
+        </div>
+
+        <!-- DETAIL IMAGE -->
+        <Picture
+          src={rental.detail}
+          alt={copy.detailAlt}
+          formats={['avif', 'webp']}
+          widths={[600, 1000, 1200, 1600]}
+          quality={66}
+          sizes="(min-width: 1152px) 1088px, 100vw"
+          loading="lazy"
+          decoding="async"
+          class="mt-14 w-full aspect-[3/2] object-cover border border-white/15"
+        />
+
+        <!-- SPECS -->
+        <div class="mt-14">
+          <SpecList specs={copy.specs} title={t.specsTitle} />
+        </div>
+
+        <!-- CTA -->
+        <div class="mt-14 border border-white/15 bg-white/[0.02] p-6 sm:p-10">
+          <h2 class="text-2xl sm:text-3xl font-bold text-white font-mono uppercase tracking-tight">
+            {t.ctaTitle}
+          </h2>
+          <p class="mt-4 text-base text-white/70 max-w-2xl leading-relaxed">{t.ctaBody}</p>
+          <div class="mt-8 flex flex-col sm:flex-row items-start sm:items-center gap-4">
+            <a
+              href="tel:+16786221776"
+              class="font-mono text-sm uppercase tracking-widest border border-white px-6 py-3 hover:bg-white hover:text-[#081d33] transition-colors w-full sm:w-auto text-center"
+            >
+              {t.call}
+            </a>
+            <a
+              href={`${base}#contact`}
+              class="font-mono text-sm uppercase tracking-widest text-white/80 hover:text-white border-b border-white/40 hover:border-white pb-1 transition-colors"
+            >
+              {t.quote} →
+            </a>
+          </div>
+        </div>
+
+        <!-- SHARE -->
+        <div class="mt-10 flex flex-wrap items-center gap-4">
+          <span class="font-mono text-[10px] uppercase tracking-[0.3em] text-white/50">{t.shareTitle}</span>
+          <a
+            href={whatsappHref}
+            target="_blank"
+            rel="noopener noreferrer"
+            class="font-mono text-xs uppercase tracking-widest border border-white/20 hover:border-white/50 hover:text-white text-white/70 px-4 py-2 transition-colors"
+          >
+            {t.shareWhatsapp}
+          </a>
+          <a
+            href={facebookHref}
+            target="_blank"
+            rel="noopener noreferrer"
+            class="font-mono text-xs uppercase tracking-widest border border-white/20 hover:border-white/50 hover:text-white text-white/70 px-4 py-2 transition-colors"
+          >
+            {t.shareFacebook}
+          </a>
+        </div>
+
+        <!-- OTHER UNIT -->
+        <div class="mt-14 border-t border-white/15 pt-8">
+          <p class="font-mono text-[10px] uppercase tracking-[0.3em] text-white/50 mb-3">{t.alsoTitle}</p>
+          <a href={`${base}rentals/${other.slug}/`} class="group inline-flex flex-col">
+            <span class="text-xl sm:text-2xl font-bold text-white font-mono uppercase tracking-wide group-hover:opacity-80 transition-opacity">
+              {other[lang].name}
+            </span>
+            <span class="mt-2 font-mono text-xs uppercase tracking-widest text-white/60 group-hover:text-white transition-colors">
+              {t.view} →
+            </span>
+          </a>
+        </div>
+      </article>
+
+      <script type="application/ld+json" set:html={JSON.stringify(productLd)} />
+      <script type="application/ld+json" set:html={JSON.stringify(breadcrumbLd)} />
+    </div>
+  </main>
+
+  <Footer lang={lang} currentPath={path} />
+</Layout>

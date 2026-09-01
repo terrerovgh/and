@@ -27,8 +27,13 @@ const {
 } = Astro.props;
 
 const canonical = new URL(path, SITE_URL).toString();
-const enUrl = new URL(path === '/' ? '/' : `/${path.replace(/^\/+/, '')}`, SITE_URL).toString();
-const esUrl = new URL(`/es${path === '/' ? '/' : `/${path.replace(/^\/+/, '')}`}`, SITE_URL).toString();
+
+/* `path` is the CURRENT page's path and already carries the /es prefix on
+   Spanish pages. Strip it before deriving the alternates, or the Spanish side
+   emits /es/es/... and points hreflang="en" at the Spanish URL. */
+const bare = path.replace(/^\/es(?=\/|$)/, '') || '/';
+const enUrl = new URL(bare, SITE_URL).toString();
+const esUrl = new URL(`/es${bare}`, SITE_URL).toString();
 
 const titleEn = `${BUSINESS_NAME} | Remodeling & Construction in South Georgia`;
 const titleEs = `${BUSINESS_NAME} | Remodelación y Construcción en el Sur de Georgia`;
@@ -36,8 +41,8 @@ const descEn = 'Licensed residential remodeling and construction in South Georgi
 const descEs = 'Remodelación y construcción residencial con licencia en el sur de Georgia. Remodelación, ampliaciones, techos, pintura, pisos y decks. Valdosta, GA. Llama al 678-622-1776 para un estimado gratis.';
 
 const keywords = lang === 'es'
-  ? ['remodelación Georgia', 'contratista Valdosta', 'constructora sur de Georgia', 'remodelación residencial', 'reparación de techos', 'pintura residencial', 'instalación de pisos', 'construcción de decks', 'ampliaciones de casa']
-  : ['remodeling South Georgia', 'Valdosta contractor', 'residential remodeling', 'home additions', 'roofing repair', 'house painting', 'flooring installation', 'deck building', 'licensed contractor Georgia'];
+  ? ['remodelación Georgia', 'contratista Valdosta', 'constructora sur de Georgia', 'remodelación residencial', 'reparación de techos', 'pintura residencial', 'instalación de pisos', 'construcción de decks', 'ampliaciones de casa', 'renta de equipos Valdosta', 'alquiler bomba de concreto Georgia', 'renta de dump trailer']
+  : ['remodeling South Georgia', 'Valdosta contractor', 'residential remodeling', 'home additions', 'roofing repair', 'house painting', 'flooring installation', 'deck building', 'licensed contractor Georgia', 'equipment rental Valdosta', 'concrete pump rental Georgia', 'dump trailer rental'];
 
 const organizationLd = {
   '@context': 'https://schema.org',
@@ -69,6 +74,31 @@ const organizationLd = {
     { '@type': 'City', name: 'Thomasville' },
     { '@type': 'City', name: 'Tallahassee' },
     { '@type': 'City', name: 'Nashville' },
+  ],
+  makesOffer: [
+    {
+      '@type': 'Offer',
+      businessFunction: 'http://purl.org/goodrelations/v1#LeaseOut',
+      availability: 'https://schema.org/InStock',
+      url: `${SITE_URL}/rentals/concrete-pump/`,
+      itemOffered: {
+        '@type': 'Product',
+        name: lang === 'es' ? 'Bomba de Concreto sobre Trailer' : 'Trailer-Mounted Concrete Pump',
+        brand: { '@type': 'Brand', name: 'Mayco' },
+        image: `${SITE_URL}/og/rental-concrete-pump.jpg`,
+      },
+    },
+    {
+      '@type': 'Offer',
+      businessFunction: 'http://purl.org/goodrelations/v1#LeaseOut',
+      availability: 'https://schema.org/InStock',
+      url: `${SITE_URL}/rentals/dump-trailer/`,
+      itemOffered: {
+        '@type': 'Product',
+        name: lang === 'es' ? 'Dump Trailer de Doble Eje' : 'Tandem-Axle Dump Trailer',
+        image: `${SITE_URL}/og/rental-dump-trailer.jpg`,
+      },
+    },
   ],
   openingHoursSpecification: [{
     '@type': 'OpeningHoursSpecification',

@@ -4,6 +4,8 @@ import Header from '../../components/Header.astro';
 import Footer from '../../components/Footer.astro';
 import Section from '../../components/Section.astro';
 import ServiceCard from '../../components/ServiceCard.astro';
+import RentalCard from '../../components/RentalCard.astro';
+import { rentals } from '../../data/rentals';
 
 const services = [
   {
@@ -136,6 +138,28 @@ const serviceLd = {
       <script type="application/ld+json" set:html={JSON.stringify(serviceLd)} />
     </Section>
 
+    <!-- EQUIPMENT RENTAL -->
+    <Section
+      id="rentals"
+      eyebrow="Renta de Equipos"
+      title="Renta la máquina, sin esperas."
+      subtitle="Además de los oficios, rentamos nuestro propio equipo. Dos unidades disponibles ahora, prácticamente nuevas y mantenidas en taller, listas para trabajar en el área de Valdosta."
+    >
+      <div class="grid gap-5 sm:grid-cols-2" role="list">
+        {rentals.map((rental, i) => (
+          <div role="listitem">
+            <RentalCard rental={rental} lang="es" index={`0${i + 1}`} />
+          </div>
+        ))}
+      </div>
+      <a
+        href="/es/rentals/"
+        class="mt-10 inline-block font-mono text-sm uppercase tracking-widest text-white/80 hover:text-white border-b border-white/40 hover:border-white pb-1 transition-colors"
+      >
+        Ver todo el equipo en renta →
+      </a>
+    </Section>
+
     <!-- SERVICE AREA -->
     <Section
       id="area"
@@ -231,5 +255,5 @@ const serviceLd = {
     </Section>
   </main>
 
-  <Footer lang="es" />
+  <Footer lang="es" currentPath="/es/" />
 </Layout>

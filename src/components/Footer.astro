@@ -1,10 +1,17 @@
 ---
 interface Props {
   lang: 'en' | 'es';
+  currentPath: string;
 }
 
-const { lang } = Astro.props;
+const { lang, currentPath } = Astro.props;
 const year = new Date().getFullYear();
+
+const base = lang === 'es' ? '/es/' : '/';
+const isHome = currentPath === base;
+
+/* Same rule as Header: anchors only work as anchors on the home page. */
+const anchor = (hash: string) => (isHome ? `#${hash}` : `${base}#${hash}`);
 ---
 
 <footer class="w-full border-t border-white/15 mt-24">
@@ -45,10 +52,11 @@ const year = new Date().getFullYear();
         {lang === 'es' ? 'Navegación' : 'Navigation'}
       </h3>
       <ul class="space-y-2 text-sm font-mono">
-        <li><a href="#about" class="hover:text-white transition-colors">{lang === 'es' ? 'Nosotros' : 'About'}</a></li>
-        <li><a href="#services" class="hover:text-white transition-colors">{lang === 'es' ? 'Servicios' : 'Services'}</a></li>
-        <li><a href="#area" class="hover:text-white transition-colors">{lang === 'es' ? 'Área de servicio' : 'Service Area'}</a></li>
-        <li><a href="#contact" class="hover:text-white transition-colors">{lang === 'es' ? 'Solicitar cotización' : 'Request a quote'}</a></li>
+        <li><a href={anchor('about')} class="hover:text-white transition-colors">{lang === 'es' ? 'Nosotros' : 'About'}</a></li>
+        <li><a href={anchor('services')} class="hover:text-white transition-colors">{lang === 'es' ? 'Servicios' : 'Services'}</a></li>
+        <li><a href={`${base}rentals/`} class="hover:text-white transition-colors">{lang === 'es' ? 'Renta de equipos' : 'Equipment Rental'}</a></li>
+        <li><a href={anchor('area')} class="hover:text-white transition-colors">{lang === 'es' ? 'Área de servicio' : 'Service Area'}</a></li>
+        <li><a href={anchor('contact')} class="hover:text-white transition-colors">{lang === 'es' ? 'Solicitar cotización' : 'Request a quote'}</a></li>
       </ul>
     </div>
   </div>
