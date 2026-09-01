@@ -54,6 +54,41 @@ npx wrangler pages deploy ./dist --project-name=all-needs-discount --branch=main
 
 You'll need to log in once: `npx wrangler login`.
 
+## AI contact assistant (Cloudflare Pages Function)
+
+The `#contact` section no longer publishes a phone number. Instead, a guided
+wizard (`src/components/ContactAssistant.astro`) posts to `functions/api/lead.ts`,
+a Cloudflare Pages Function that runs on the same domain — Cloudflare Pages
+deploys anything under `functions/` automatically alongside the static
+output, whether you push via Git or `wrangler pages deploy`. No change to
+Astro's `output: 'static'` mode is required.
+
+The Function does two things:
+
+1. Calls **Workers AI** (`env.AI`) to turn the wizard answers into a short,
+   readable summary.
+2. Emails that summary to the business owner using the **Email Routing
+   "Send Email" binding** (`env.SEND_EMAIL`), replacing the old unreliable
+   `mailto:` form.
+
+Both bindings are declared in `wrangler.jsonc`. Before the first deploy where
+this needs to actually work, do these one-time steps in the Cloudflare
+dashboard for the `allneedsdiscount.com` zone:
+
+1. **Workers AI** — enabled by default on Cloudflare accounts; no setup
+   needed beyond the `ai` binding already in `wrangler.jsonc`.
+2. **Email Routing** — go to the zone → **Email** → **Email Routing**,
+   enable it for `allneedsdiscount.com` (this also adds the required MX/SPF
+   records), then add and verify `allneedsdiscount1@gmail.com` as a
+   **destination address** (a confirmation email is sent to that inbox).
+3. The Function sends *from* `leads@allneedsdiscount.com`. That address does
+   not need to be a real mailbox — it only needs to belong to a zone that has
+   Email Routing enabled, which step 2 covers.
+
+Until Email Routing is verified, `/api/lead` will fail on the email step and
+the wizard shows its error state with a `mailto:` fallback link — it will
+not silently drop leads.
+
 ## Custom domain
 
 After the first deploy, in the Pages project → **Custom domains** → set `allneedsdiscount.com` (and `www.`). Cloudflare provisions the certificate automatically.

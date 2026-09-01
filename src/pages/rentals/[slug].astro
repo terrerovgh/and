@@ -32,10 +32,9 @@ const t = lang === 'es'
       breadcrumbRentals: 'Renta',
       available: 'Disponible ahora',
       specsTitle: 'Ficha técnica',
-      ctaTitle: 'Llama para tarifas',
-      ctaBody: 'No publicamos precios porque la tarifa depende de los días y de si necesitas entrega. Llámanos y te confirmamos disponibilidad y costo el mismo día. El estimado es gratis y sin compromiso.',
-      ctaBodyDelivery: 'No publicamos precios porque la tarifa depende de los días que necesites el contenedor y de qué tan lejos hay que entregarlo. Llámanos y te confirmamos disponibilidad y costo el mismo día, entrega incluida. El estimado es gratis y sin compromiso.',
-      call: 'Llama 678 622 1776',
+      ctaTitle: 'Pide tarifas',
+      ctaBody: 'No publicamos precios porque la tarifa depende de los días y de si necesitas entrega. Responde unas preguntas rápidas y te confirmamos disponibilidad y costo el mismo día. El estimado es gratis y sin compromiso.',
+      ctaBodyDelivery: 'No publicamos precios porque la tarifa depende de los días que necesites el contenedor y de qué tan lejos hay que entregarlo. Responde unas preguntas rápidas y te confirmamos disponibilidad y costo el mismo día, entrega incluida. El estimado es gratis y sin compromiso.',
       quote: 'Solicitar cotización',
       shareTitle: 'Compartir',
       shareWhatsapp: 'WhatsApp',
@@ -48,10 +47,9 @@ const t = lang === 'es'
       breadcrumbRentals: 'Rentals',
       available: 'Available now',
       specsTitle: 'Specifications',
-      ctaTitle: 'Call for rates',
-      ctaBody: 'We do not post prices because the rate depends on how many days you need it and whether you want it delivered. Call and we will confirm availability and cost the same day. The estimate is free and there is no pressure.',
-      ctaBodyDelivery: 'We do not post prices because the rate depends on how many days you need the container and how far we have to deliver it. Call and we will confirm availability and cost the same day, delivery included. The estimate is free and there is no pressure.',
-      call: 'Call 678 622 1776',
+      ctaTitle: 'Ask for rates',
+      ctaBody: 'We do not post prices because the rate depends on how many days you need it and whether you want it delivered. Answer a few quick questions and we will confirm availability and cost the same day. The estimate is free and there is no pressure.',
+      ctaBodyDelivery: 'We do not post prices because the rate depends on how many days you need the container and how far we have to deliver it. Answer a few quick questions and we will confirm availability and cost the same day, delivery included. The estimate is free and there is no pressure.',
       quote: 'Request a quote',
       shareTitle: 'Share',
       shareWhatsapp: 'WhatsApp',
@@ -211,14 +209,8 @@ const breadcrumbLd = {
           <p class="mt-4 text-base text-white/70 max-w-2xl leading-relaxed">{copy.howItWorks ? t.ctaBodyDelivery : t.ctaBody}</p>
           <div class="mt-8 flex flex-col sm:flex-row items-start sm:items-center gap-4">
             <a
-              href="tel:+16786221776"
+              href={`${base}?equipment=${encodeURIComponent(copy.name)}#contact`}
               class="font-mono text-sm uppercase tracking-widest border border-white px-6 py-3 hover:bg-white hover:text-[#081d33] transition-colors w-full sm:w-auto text-center"
-            >
-              {t.call}
-            </a>
-            <a
-              href={`${base}#contact`}
-              class="font-mono text-sm uppercase tracking-widest text-white/80 hover:text-white border-b border-white/40 hover:border-white pb-1 transition-colors"
             >
               {t.quote} →
             </a>

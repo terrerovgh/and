@@ -15,6 +15,7 @@
     "@astrojs/sitemap": "^3.4.0",
     "@astrojs/tailwind": "^6.0.0",
     "astro": "^5.4.0",
+    "mimetext": "^3.0.24",
     "sharp": "^0.35.4",
     "tailwindcss": "^3.4.17"
   },

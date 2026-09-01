@@ -34,7 +34,9 @@ const anchor = (hash: string) => (isHome ? `#${hash}` : `${base}#${hash}`);
       </h3>
       <ul class="space-y-2 text-sm font-mono">
         <li>
-          <a href="tel:6786221776" class="hover:text-white transition-colors">678 622 1776</a>
+          <a href={anchor('contact')} class="hover:text-white transition-colors">
+            {lang === 'es' ? 'Solicitar cotización' : 'Request a quote'}
+          </a>
         </li>
         <li>
           <a href="mailto:allneedsdiscount1@gmail.com" class="hover:text-white transition-colors break-all">

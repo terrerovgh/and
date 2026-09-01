@@ -13,26 +13,24 @@ const path = `${base}rentals/`;
 const t = lang === 'es'
   ? {
       title: 'All Needs Discount LLC | Renta de Equipos en Valdosta, GA',
-      description: 'Renta de bomba de concreto sobre trailer y dump trailer de doble eje en Valdosta y el sur de Georgia. Equipos en óptimas condiciones. Llama al 678-622-1776 para tarifas.',
+      description: 'Renta de bomba de concreto sobre trailer y dump trailer de doble eje en Valdosta y el sur de Georgia. Equipos en óptimas condiciones. Solicita cotización en línea.',
       eyebrow: 'Renta de Equipos',
       heading: 'Renta la máquina, sin esperas.',
-      subtitle: 'Dos unidades disponibles ahora, prácticamente nuevas y mantenidas en taller. Entregadas listas para trabajar en el área de Valdosta. Llama para tarifas por día o por semana.',
+      subtitle: 'Dos unidades disponibles ahora, prácticamente nuevas y mantenidas en taller. Entregadas listas para trabajar en el área de Valdosta. Solicita tarifas por día o por semana en línea.',
       ctaTitle: '¿Necesitas una de estas para tu proyecto?',
-      ctaBody: 'Llámanos y te decimos disponibilidad y tarifa el mismo día. Si el trabajo lo hacemos nosotros, también te lo cotizamos completo.',
-      call: 'Llama 678 622 1776',
+      ctaBody: 'Responde unas preguntas rápidas y te confirmamos disponibilidad y tarifa el mismo día. Si el trabajo lo hacemos nosotros, también te lo cotizamos completo.',
       quote: 'Solicitar cotización',
       breadcrumbHome: 'Inicio',
       breadcrumbHere: 'Renta de Equipos',
     }
   : {
       title: 'All Needs Discount LLC | Equipment Rental in Valdosta, GA',
-      description: 'Trailer-mounted concrete pump and tandem-axle dump trailer for rent in Valdosta and South Georgia. Late-model, shop-maintained. Call 678-622-1776 for rates.',
+      description: 'Trailer-mounted concrete pump and tandem-axle dump trailer for rent in Valdosta and South Georgia. Late-model, shop-maintained. Request a quote online.',
       eyebrow: 'Equipment Rental',
       heading: 'Rent the machine, skip the wait.',
-      subtitle: 'Two units available now, both late-model and shop-maintained. Delivered ready to work in the Valdosta area. Call for daily and weekly rates.',
+      subtitle: 'Two units available now, both late-model and shop-maintained. Delivered ready to work in the Valdosta area. Request daily and weekly rates online.',
       ctaTitle: 'Need one of these on your project?',
-      ctaBody: 'Call and we will confirm availability and rate the same day. If you would rather we do the work, we will quote the whole job too.',
-      call: 'Call 678 622 1776',
+      ctaBody: 'Answer a few quick questions and we will confirm availability and rate the same day. If you would rather we do the work, we will quote the whole job too.',
       quote: 'Request a quote',
       breadcrumbHome: 'Home',
       breadcrumbHere: 'Equipment Rental',
@@ -93,14 +91,8 @@ const breadcrumbLd = {
         <p class="mt-4 text-base text-white/70 max-w-2xl leading-relaxed">{t.ctaBody}</p>
         <div class="mt-8 flex flex-col sm:flex-row items-start sm:items-center gap-4">
           <a
-            href="tel:+16786221776"
-            class="font-mono text-sm uppercase tracking-widest border border-white px-6 py-3 hover:bg-white hover:text-[#081d33] transition-colors w-full sm:w-auto text-center"
-          >
-            {t.call}
-          </a>
-          <a
             href={`${base}#contact`}
-            class="font-mono text-sm uppercase tracking-widest text-white/80 hover:text-white border-b border-white/40 hover:border-white pb-1 transition-colors"
+            class="font-mono text-sm uppercase tracking-widest border border-white px-6 py-3 hover:bg-white hover:text-[#081d33] transition-colors w-full sm:w-auto text-center"
           >
             {t.quote} →
           </a>

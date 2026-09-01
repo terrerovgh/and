@@ -5,6 +5,7 @@ import Footer from '../../components/Footer.astro';
 import Section from '../../components/Section.astro';
 import ServiceCard from '../../components/ServiceCard.astro';
 import RentalCard from '../../components/RentalCard.astro';
+import ContactAssistant from '../../components/ContactAssistant.astro';
 import { rentals } from '../../data/rentals';
 
 const services = [
@@ -53,7 +54,7 @@ const serviceLd = {
 <Layout
   lang="es"
   title="All Needs Discount LLC | Remodelación y Construcción en el Sur de Georgia"
-  description="Remodelación y construcción residencial con licencia en el sur de Georgia. Remodelación, ampliaciones, techos, pintura, pisos y decks. Valdosta, GA. Llama al 678-622-1776 para un estimado gratis."
+  description="Remodelación y construcción residencial con licencia en el sur de Georgia. Remodelación, ampliaciones, techos, pintura, pisos y decks. Valdosta, GA. Solicita un estimado gratis en línea."
   path="/es/"
 >
   <Header lang="es" currentPath="/es/" />
@@ -79,11 +80,10 @@ const serviceLd = {
       </p>
       <div class="mt-10 flex flex-col sm:flex-row items-center justify-center gap-4">
         <a
-          href="tel:+16786221776"
+          href="#contact"
           class="font-mono text-sm uppercase tracking-widest border border-white px-6 py-3 hover:bg-white hover:text-[#081d33] transition-colors w-full sm:w-auto"
-          aria-label="Llamar a All Needs Discount al 678-622-1776"
         >
-          Llamar 678 622 1776
+          Obtener estimado gratis
         </a>
         <a
           href="#contact"
@@ -189,15 +189,8 @@ const serviceLd = {
           <meta itemprop="addressRegion" content="GA" />
           <meta itemprop="addressCountry" content="US" />
           <a
-            href="tel:+16786221776"
-            class="block font-mono text-2xl sm:text-3xl text-white hover:opacity-80 transition-opacity"
-            itemprop="telephone"
-          >
-            678 622 1776
-          </a>
-          <a
             href="mailto:allneedsdiscount1@gmail.com"
-            class="block font-mono text-base sm:text-lg text-white/80 hover:text-white break-all transition-colors"
+            class="block font-mono text-base sm:text-lg text-white hover:opacity-80 break-all transition-colors"
           >
             allneedsdiscount1@gmail.com
           </a>
@@ -205,52 +198,12 @@ const serviceLd = {
             Lun – Sáb · 7:00 AM – 6:00 PM<br />
             Valdosta, GA · sirviendo la región
           </p>
+          <p class="text-sm text-white/60 leading-relaxed max-w-sm">
+            Sin llamadas ni esperas. Responde unas preguntas rápidas y te contactamos con un estimado gratis y sin compromiso.
+          </p>
         </div>
 
-        <form
-          action="mailto:allneedsdiscount1@gmail.com"
-          method="post"
-          enctype="text/plain"
-          class="space-y-4"
-          aria-label="Solicitar cotización de proyecto"
-        >
-          <label class="block">
-            <span class="font-mono text-[10px] uppercase tracking-widest text-white/60">Nombre</span>
-            <input
-              type="text"
-              name="name"
-              required
-              autocomplete="name"
-              class="mt-1 w-full bg-transparent border border-white/30 focus:border-white px-3 py-2 text-white font-sans outline-none transition-colors"
-            />
-          </label>
-          <label class="block">
-            <span class="font-mono text-[10px] uppercase tracking-widest text-white/60">Teléfono</span>
-            <input
-              type="tel"
-              name="phone"
-              required
-              autocomplete="tel"
-              inputmode="tel"
-              class="mt-1 w-full bg-transparent border border-white/30 focus:border-white px-3 py-2 text-white font-sans outline-none transition-colors"
-            />
-          </label>
-          <label class="block">
-            <span class="font-mono text-[10px] uppercase tracking-widest text-white/60">Proyecto</span>
-            <textarea
-              name="project"
-              rows="4"
-              required
-              class="mt-1 w-full bg-transparent border border-white/30 focus:border-white px-3 py-2 text-white font-sans outline-none transition-colors resize-y"
-            ></textarea>
-          </label>
-          <button
-            type="submit"
-            class="font-mono text-sm uppercase tracking-widest border border-white px-6 py-3 text-white hover:bg-white hover:text-[#081d33] transition-colors w-full sm:w-auto"
-          >
-            Enviar
-          </button>
-        </form>
+        <ContactAssistant lang="es" />
       </div>
     </Section>
   </main>
