@@ -23,13 +23,10 @@ interface LeadPayload {
   lang?: 'en' | 'es';
 }
 
-// TEMPORARY: allneedsdiscount.com is not yet a Cloudflare zone on this
-// account, so Resend has nothing on that domain to verify against yet.
-// Sending from terrerov.com (already an active zone) to the owner's known
-// address until the real domain and business inbox are wired up — see
-// DEPLOY.md.
-const SENDER_ADDRESS = 'All Needs Discount Website <leads@terrerov.com>';
-const BUSINESS_ADDRESS = 'terrerov@gmail.com';
+// Sending domain: allneedsdiscount.com must stay verified in Resend
+// (SPF/DKIM records on the Cloudflare zone) or Resend will reject delivery.
+const SENDER_ADDRESS = 'All Needs Discount Website <leads@allneedsdiscount.com>';
+const BUSINESS_ADDRESS = 'allneedsdiscount1@gmail.com';
 
 function json(body: unknown, status = 200): Response {
   return new Response(JSON.stringify(body), {

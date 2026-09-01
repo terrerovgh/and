@@ -81,11 +81,10 @@ Resend.
 
 1. Create a free account at [resend.com](https://resend.com) and generate
    an API key.
-2. Verify a sending domain in Resend (Domains → Add Domain) so `terrerov.com`
-   — or `allneedsdiscount.com` once that's connected to Cloudflare, see
-   below — can send mail reliably. Resend gives you a few DNS records
-   (SPF/DKIM) to add to the zone; without domain verification Resend can
-   only deliver to the account owner's own address.
+2. Verify a sending domain in Resend (Domains → Add Domain) so
+   `allneedsdiscount.com` can send mail reliably. Resend gives you a few
+   DNS records (SPF/DKIM) to add to the Cloudflare zone; without domain
+   verification Resend can only deliver to the account owner's own address.
 3. Store the key as a Pages secret (never commit it):
    ```bash
    npx wrangler pages secret put RESEND_API_KEY --project-name=all-needs-discount
@@ -94,20 +93,21 @@ Resend.
    fails safely at the email step and the wizard shows its error state with
    a `mailto:` fallback link — it will not silently drop leads.
 
-**Current state (temporary):** `allneedsdiscount.com` is not yet a zone on
-this Cloudflare account, so `functions/api/lead.ts` sends from
-`leads@terrerov.com` to `terrerov@gmail.com` (the account owner's address)
-instead of the real business domain/inbox. Once `allneedsdiscount.com` is
-connected (see **Custom domain** below) and verified as a sending domain in
-Resend, update `SENDER_ADDRESS` and `BUSINESS_ADDRESS` in
-`functions/api/lead.ts` to `leads@allneedsdiscount.com` and
-`allneedsdiscount1@gmail.com`.
+Sends from `leads@allneedsdiscount.com` to `allneedsdiscount1@gmail.com`
+(`SENDER_ADDRESS` / `BUSINESS_ADDRESS` in `functions/api/lead.ts`). If the
+Resend verification for `allneedsdiscount.com` ever lapses, delivery to
+`allneedsdiscount1@gmail.com` will be rejected — re-verify the domain.
 
 ## Custom domain
 
-After the first deploy, in the Pages project → **Custom domains** → set `allneedsdiscount.com` (and `www.`). Cloudflare provisions the certificate automatically.
+Production serves `https://allneedsdiscount.com` and
+`https://www.allneedsdiscount.com` (both attached as Pages custom domains;
+Cloudflare provisions the CNAME and certificate automatically). Canonical
+URLs point at the apex, and the temporary `allneedsdiscount.terrerov.com`
+alias may be removed at any time.
 
-Update `SITE_URL` in `astro.config.mjs` and `src/layouts/Layout.astro` if the production domain differs.
+If the production domain ever changes, update `SITE_URL` in
+`astro.config.mjs` **and** `src/layouts/Layout.astro` (both copies).
 
 ## URLs
 
@@ -129,7 +129,7 @@ Update `SITE_URL` in `astro.config.mjs` and `src/layouts/Layout.astro` if the pr
 │   ├── site.webmanifest
 │   ├── favicon.svg, *.png, apple-touch-icon.png
 │   ├── og-image.svg        # 1200x630 social card
-│   └── AND_LOGO.svg
+│   └── logo.svg, logo-white.svg, logo-mark.svg
 └── src/
     ├── layouts/Layout.astro
     ├── pages/
