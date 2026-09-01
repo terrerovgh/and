@@ -117,11 +117,12 @@ export const rentals: Rental[] = [
     ogImage: '/og/rental-dump-trailer.jpg',
     en: {
       name: 'Tandem-Axle Dump Trailer',
-      model: 'Hydraulic hoist · Barn-door tailgate',
+      model: 'Panther Cargo 7x14TA Roll Off · Base configuration',
       teaser: 'One trip where a pickup bed makes five. Load it, tow it, dump it.',
       body: [
-        'Demo debris, roofing tear-off, dirt, gravel, mulch — load it, tow it, dump it. Tandem axles and high solid sides mean one trip where a pickup bed makes five, and the hydraulic hoist empties it without a shovel.',
-        'Full-width barn-door tailgate for clean unloading, spare tire and tongue jack included. Hitches to a standard 2-5/16 in ball, so if you can tow, you can run it.',
+        "Demo debris, roofing tear-off, dirt, gravel, mulch — load it, tow it, dump it. A 10 in I-beam frame, 10 gauge steel walls and floor, and full-width rear barn doors mean one trip where a pickup bed makes five, and the hydraulic scissor lift empties it without a shovel.",
+        'Adjustable coupler with a 12k jack and spare tire mount — hitches up fast and tows steady. 235/80 R16 14-ply tires and steel fenders on both sides.',
+        'Standard equipment includes a tarp kit, lockable tool box, 17,500 lb winch, 5/8 in D-rings, DOT-approved lighting with reflective tape, and a battery with condition tester — all mounted from the factory.',
       ],
       goodForTitle: 'Good for',
       goodFor: [
@@ -131,27 +132,32 @@ export const rentals: Rental[] = [
         'Hauling equipment and materials to the job',
         'Cleanouts, moves and small renovations',
       ],
-      // TODO: verificar con el dueño — observaciones de las fotos. Falta
-      // capacidad en yardas y GVWR, que es lo que más pregunta el cliente.
+      // Manufacturer specs for the 7x14TA base unit, from panthercargousa.com/products/rolloff
+      // (confirmed 2026-09-01). TODO: verificar con el dueño si esta unidad lleva ejes de
+      // 7k o 8k — el GVWR publicado depende de esa elección y no es visible en las fotos.
       specs: [
+        { label: 'Size', value: '7 ft x 14 ft (7x14TA)' },
+        { label: 'Capacity', value: '14.2 yd³' },
+        { label: 'GVWR', value: '14,000 lbs (7k axles) / 16,000 lbs (8k axles)' },
         { label: 'Axles', value: 'Tandem' },
-        { label: 'Unloading', value: 'Hydraulic hoist' },
-        { label: 'Tailgate', value: 'Barn-door, full width' },
-        { label: 'Coupler', value: '2-5/16 in ball' },
-        { label: 'Included', value: 'Spare tire + tongue jack' },
+        { label: 'Unloading', value: 'Hydraulic scissor lift, rear barn doors' },
+        { label: 'Frame', value: '10 in I-beam, 10 ga steel walls & floor' },
+        { label: 'Tires', value: '235/80 R16, 14-ply' },
+        { label: 'Coupler', value: 'Adjustable coupler, 12k jack, spare tire mount' },
       ],
       heroAlt: 'Black tandem-axle hydraulic dump trailer with high solid sides, parked on a driveway at sunset.',
       detailAlt: 'Side profile of the tandem-axle dump trailer showing the full length, spare tire and tongue jack.',
       metaTitle: 'Dump Trailer Rental in Valdosta, GA | All Needs Discount LLC',
-      metaDescription: 'Tandem-axle hydraulic dump trailer for rent in Valdosta and South Georgia. Demo debris, dirt, gravel, roofing tear-off. Call 678-622-1776 for rates.',
+      metaDescription: '7x14 tandem-axle hydraulic dump trailer for rent in Valdosta and South Georgia. 14.2 yd³, 14,000 lbs GVWR. Call 678-622-1776 for rates.',
     },
     es: {
       name: 'Dump Trailer de Doble Eje',
-      model: 'Volteo hidráulico · Compuertas tipo granero',
+      model: 'Panther Cargo 7x14TA Roll Off · Configuración base',
       teaser: 'Un viaje donde una camioneta hace cinco. Cargas, remolcas y volteas.',
       body: [
-        'Escombro de demolición, techo arrancado, tierra, grava, mulch — cargas, remolcas y volteas. Doble eje y laterales altos: un viaje donde una camioneta hace cinco, y el volteo hidráulico lo vacía sin pala.',
-        'Compuertas traseras de ancho completo para descargar limpio, llanta de refacción y gato incluidos. Se engancha a una bola estándar de 2-5/16 pulg, así que si puedes remolcar, puedes usarlo.',
+        'Escombro de demolición, techo arrancado, tierra, grava, mulch — cargas, remolcas y volteas. Marco de viga I de 10 pulg, paredes y piso de acero calibre 10, y compuertas traseras tipo granero de ancho completo: un viaje donde una camioneta hace cinco, y el volteo hidráulico lo vacía sin pala.',
+        'Enganche ajustable con gato de 12k y soporte para llanta de refacción — se engancha rápido y remolca estable. Llantas 235/80 R16 de 14 lonas y guardafangos de acero en ambos lados.',
+        'De fábrica incluye kit de lona, caja de herramientas con seguro, winche de 17,500 lbs, argollas D de 5/8 pulg, luces aprobadas por el DOT con cinta reflectiva, y batería con probador de estado — todo montado de fábrica.',
       ],
       goodForTitle: 'Ideal para',
       goodFor: [
@@ -161,14 +167,18 @@ export const rentals: Rental[] = [
         'Llevar equipo y material a la obra',
         'Desalojos, mudanzas y remodelaciones pequeñas',
       ],
-      // TODO: verificar con el dueño — observaciones de las fotos. Falta
-      // capacidad en yardas y GVWR, que es lo que más pregunta el cliente.
+      // Specs del fabricante para la unidad base 7x14TA, de panthercargousa.com/products/rolloff
+      // (confirmado 2026-09-01). TODO: verificar con el dueño si esta unidad lleva ejes de
+      // 7k u 8k — el GVWR publicado depende de esa elección y no es visible en las fotos.
       specs: [
+        { label: 'Tamaño', value: '7 x 14 pies (7x14TA)' },
+        { label: 'Capacidad', value: '14.2 yd³' },
+        { label: 'GVWR', value: '14,000 lbs (ejes 7k) / 16,000 lbs (ejes 8k)' },
         { label: 'Ejes', value: 'Doble' },
-        { label: 'Descarga', value: 'Volteo hidráulico' },
-        { label: 'Compuerta', value: 'Tipo granero, ancho completo' },
-        { label: 'Enganche', value: 'Bola de 2-5/16 pulg' },
-        { label: 'Incluye', value: 'Llanta de refacción + gato' },
+        { label: 'Descarga', value: 'Volteo hidráulico, compuertas traseras tipo granero' },
+        { label: 'Marco', value: 'Viga I de 10 pulg, acero cal. 10 en paredes y piso' },
+        { label: 'Llantas', value: '235/80 R16, 14 lonas' },
+        { label: 'Enganche', value: 'Ajustable, gato de 12k, soporte de refacción' },
       ],
       heroAlt: 'Dump trailer negro de doble eje con volteo hidráulico y laterales altos, estacionado en una entrada al atardecer.',
       detailAlt: 'Perfil lateral del dump trailer de doble eje mostrando el largo completo, la llanta de refacción y el gato.',
