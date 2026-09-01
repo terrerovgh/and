@@ -1,22 +1,59 @@
 ---
+/*
+ * Solid surface card. Deliberately not an outline-only box: the backdrop is a
+ * faint drawing, so the card has to sit ON the paper rather than dissolve into
+ * it. Title is Inter in sentence case — the mono uppercase is kept for the
+ * index alone, which is what keeps this reading as a contractor's site rather
+ * than a terminal.
+ */
+export type ServiceIcon =
+  | 'remodeling' | 'additions' | 'roofing' | 'painting' | 'flooring' | 'decks';
+
 interface Props {
   index: string;
   title: string;
   description: string;
+  icon?: ServiceIcon;
 }
 
-const { index, title, description } = Astro.props;
+const { index, title, description, icon = 'remodeling' } = Astro.props;
+
+/* 24px grid, 1.4 stroke, no fills — one consistent line style across the set. */
+const icons: Record<ServiceIcon, string[]> = {
+  remodeling: ['M3.5 10.6 12 4.2l8.5 6.4', 'M5.8 9.4v10.4h12.4V9.4', 'M9.4 19.8v-6.2h5.2v6.2'],
+  additions: ['M3.4 20.2V9.6l6.2-4.4v15', 'M9.6 11.4h11v8.8', 'M13.4 20.2v-4.6h3.6v4.6'],
+  roofing: ['M2.6 14.4 12 5.4l9.4 9', 'M4.8 16.4h14.4', 'M7 18.8h10'],
+  painting: ['M4.6 4.6h11.2v5.2H4.6z', 'M15.8 7.2h3.6v4.4h-6v3', 'M11.2 14.6h2.4v4.8h-2.4z'],
+  flooring: ['M3.4 6.2h17.2v11.6H3.4z', 'M3.4 10.1h17.2M3.4 13.9h17.2', 'M9.2 6.2v3.9M14.4 10.1v3.8M9.2 13.9v3.9'],
+  decks: ['M2.8 9.4h18.4v2.4H2.8z', 'M5.4 11.8v7.8M18.6 11.8v7.8', 'M5.4 15.4h13.2', 'M8.6 9.4V5.8h6.8v3.6'],
+};
 ---
 
-<article class="group relative border border-white/15 hover:border-white/40 transition-colors p-6 sm:p-8 bg-white/[0.02]">
-  <span class="font-mono text-xs text-white/40 absolute top-4 right-4 tracking-widest">
-    {index}
-  </span>
-  <div class="w-10 h-px bg-white mb-5 group-hover:w-16 transition-all duration-300"></div>
-  <h3 class="text-xl sm:text-2xl font-bold text-white font-mono uppercase tracking-wide mb-3">
+<article
+  class="group flex h-full flex-col gap-4 rounded-[3px] border border-white/[0.085] bg-[#1c2a36]/[0.72] p-[30px] pb-8 shadow-[0_1px_0_rgba(255,255,255,0.045)_inset,0_18px_34px_-22px_rgba(4,10,15,0.9)] transition-[border-color,box-shadow,transform,background-color] duration-200 hover:-translate-y-0.5 hover:border-white/[0.16] hover:bg-[#22323f]/[0.85] hover:shadow-[0_1px_0_rgba(255,255,255,0.06)_inset,0_26px_44px_-24px_rgba(4,10,15,0.95)]"
+>
+  <div class="flex items-center justify-between">
+    <svg
+      width="26"
+      height="26"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="#c69a63"
+      stroke-width="1.4"
+      stroke-linecap="round"
+      stroke-linejoin="round"
+      aria-hidden="true"
+    >
+      {icons[icon].map(d => <path d={d} />)}
+    </svg>
+    <span class="font-mono text-[10.5px] tracking-[0.24em] text-white/[0.26] transition-colors group-hover:text-white/40">
+      {index}
+    </span>
+  </div>
+  <h3 class="text-xl font-semibold tracking-[-0.004em] text-[#f6f8f9]">
     {title}
   </h3>
-  <p class="text-sm sm:text-base text-white/70 leading-relaxed">
+  <p class="text-[14.5px] leading-[1.66] text-white/[0.64] text-pretty transition-colors group-hover:text-white/[0.74]">
     {description}
   </p>
 </article>

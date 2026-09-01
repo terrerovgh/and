@@ -5,14 +5,18 @@ export default {
     extend: {
       colors: {
         blueprint: {
-          bg: '#0a2540',
-          dark: '#081d33',
-          border: 'rgba(255, 255, 255, 0.35)',
-          borderLight: 'rgba(255, 255, 255, 0.15)',
-          grid: 'rgba(255, 255, 255, 0.08)',
-          text: '#ffffff',
-          textMuted: 'rgba(255, 255, 255, 0.75)',
-          textDim: 'rgba(255, 255, 255, 0.5)',
+          bg: '#111d27',
+          dark: '#0c1720',
+          surface: '#1c2a36',
+          ink: '#9db3c2',
+          accent: '#c69a63',
+          accentDeep: '#b5814a',
+          border: 'rgba(240, 243, 245, 0.16)',
+          borderLight: 'rgba(240, 243, 245, 0.085)',
+          grid: 'rgba(157, 179, 194, 0.07)',
+          text: '#f0f3f5',
+          textMuted: 'rgba(240, 243, 245, 0.72)',
+          textDim: 'rgba(240, 243, 245, 0.5)',
         },
       },
       fontFamily: {

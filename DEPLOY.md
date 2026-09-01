@@ -130,7 +130,7 @@ If the production domain ever changes, update `SITE_URL` in
 │   ├── favicon.svg, *.png, apple-touch-icon.png
 │   ├── og-image.svg        # source for the raster card
 │   └── og/                 # raster OG JPEGs 1200x630 (og-image.jpg + rentals)
-│   └── logo.svg, logo-white.svg, logo-mark.svg
+│   └── AND_LOGO.svg (master), logo-white.svg, logo-mark.svg, favicon.svg + PNG icons
 └── src/
     ├── layouts/Layout.astro
     ├── pages/

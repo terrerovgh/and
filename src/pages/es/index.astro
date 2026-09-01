@@ -11,26 +11,32 @@ import { rentals } from '../../data/rentals';
 const services = [
   {
     title: 'Remodelación',
+    icon: 'remodeling',
     description: 'Renovaciones de casa completa o por habitación en toda nuestra zona de servicio del sur de Georgia, desde Ray City y Valdosta hasta Adel, Tifton y Waycross. Cocinas, baños y áreas sociales diseñadas para cómo vives realmente.',
   },
   {
     title: 'Ampliaciones',
+    icon: 'additions',
     description: 'Suma espacio con un cuarto nuevo, garaje, sunroom o segundo piso — integrado al diseño existente y bajo el código de construcción vigente de Georgia.',
   },
   {
     title: 'Techos',
+    icon: 'roofing',
     description: 'Re-techos, reparaciones y restauración por daños de tormenta. Teja asfáltica y metal instalados bajo el código actual de Georgia por un contratista local.',
   },
   {
     title: 'Pintura',
+    icon: 'painting',
     description: 'Pintura interior y exterior con preparación, imprimación y acabados que resisten el calor y la humedad del sur de Georgia.',
   },
   {
     title: 'Pisos',
+    icon: 'flooring',
     description: 'Instalación de madera, laminado, LVP y baldosa. Demolición, reparación de subsuelo e instalación bien hecha desde el inicio.',
   },
   {
     title: 'Decks',
+    icon: 'decks',
     description: 'Construcción nueva, reemplazo y reparaciones de decks. Madera tratada, composite y madera dura con líneas limpias y bases sólidas.',
   },
 ];
@@ -106,19 +112,26 @@ const faqLd = {
       <p class="font-mono text-[10px] sm:text-xs uppercase tracking-[0.4em] text-white/50 mb-6">
         Sur de Georgia · Con licencia · Asegurado
       </p>
-      <h1
-        id="hero-title"
-        class="text-4xl sm:text-6xl md:text-7xl font-extrabold tracking-tight font-mono uppercase leading-[1.05]"
-      >
-        All Needs Discount<br />LLC
-      </h1>
+      <!-- The official lockup already carries the company name, so the visible
+           mono wordmark would say it twice. The h1 stays for semantics/SEO. -->
+      <h1 id="hero-title" class="sr-only">All Needs Discount LLC</h1>
+      <img
+        src="/logo-white.svg"
+        alt="All Needs Discount LLC"
+        class="mx-auto w-[260px] sm:w-[380px] md:w-[460px] h-auto"
+        width="460"
+        height="307"
+        loading="eager"
+        fetchpriority="high"
+      />
+      <div class="mx-auto mt-7 sm:mt-8 h-0.5 w-12 sm:w-16 bg-[#c69a63]"></div>
       <p class="mt-6 text-lg sm:text-2xl text-white/80 font-light max-w-2xl mx-auto leading-relaxed">
         Remodelación y construcción residencial, hecha con cuidado. Una llamada, una cuadrilla, un solo contacto desde la cotización hasta la entrega final.
       </p>
       <div class="mt-10 flex flex-col sm:flex-row items-center justify-center gap-4">
         <a
           href="#contact"
-          class="font-mono text-sm uppercase tracking-widest border border-white px-6 py-3 hover:bg-white hover:text-[#081d33] transition-colors w-full sm:w-auto"
+          class="font-mono text-sm uppercase tracking-widest bg-[#c69a63] text-[#14202a] rounded-[2px] px-6 py-3.5 hover:bg-[#d8ae78] transition-colors w-full sm:w-auto"
         >
           Obtener estimado gratis
         </a>
@@ -168,6 +181,7 @@ const faqLd = {
               index={`0${i + 1}`}
               title={service.title}
               description={service.description}
+              icon={service.icon}
             />
           </div>
         ))}

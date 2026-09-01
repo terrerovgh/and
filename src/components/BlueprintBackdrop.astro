@@ -10,6 +10,20 @@
 <div class="bp-backdrop" aria-hidden="true">
   <div class="bp-grid"></div>
 
+  <!--
+    One shared roughening filter. Applied per top-level <g> (never to the whole
+    svg) so the drafting geometry picks up a hand-drawn wobble while the room
+    labels and dimensions, which sit as direct <text> children, stay crisp.
+    feTurbulence is generated in user space, so neighbouring groups displace
+    consistently and walls still meet at the corners.
+  -->
+  <svg class="bp-defs" width="0" height="0" aria-hidden="true" focusable="false">
+    <filter id="bp-hand" x="-6%" y="-6%" width="112%" height="112%">
+      <feTurbulence type="fractalNoise" baseFrequency="0.016" numOctaves="3" seed="7" result="bp-noise" />
+      <feDisplacementMap in="SourceGraphic" in2="bp-noise" scale="4.4" xChannelSelector="R" yChannelSelector="G" />
+    </filter>
+  </svg>
+
   <div class="bp-ink bp-ink--plan">
     <svg viewBox="0 0 1400 1270">
     <g class="bp-pl bp-wh"><rect x="110" y="120"/></g><g class="bp-pl bp-wc"><line x1="95" y1="540" x2="1145" y2="540"/></g>
@@ -58,45 +72,51 @@
     z-index: -1;
     overflow: hidden;
     pointer-events: none;
-    background-color: #0b1f3f;
+    background-color: #111d27;
   }
 
-  /* Three grid tiers over an uneven cyanotype exposure wash. */
+  /* Two grid tiers over an uneven, aged exposure wash. Deliberately faint: the
+     paper is atmosphere, never the subject. */
   .bp-grid {
     position: absolute;
     inset: 0;
     background-image:
-      linear-gradient(to right, rgba(56, 189, 248, 0.030) 1px, transparent 1px),
-      linear-gradient(to bottom, rgba(56, 189, 248, 0.030) 1px, transparent 1px),
-      linear-gradient(to right, rgba(56, 189, 248, 0.055) 1px, transparent 1px),
-      linear-gradient(to bottom, rgba(56, 189, 248, 0.055) 1px, transparent 1px),
-      linear-gradient(to right, rgba(125, 211, 252, 0.115) 1px, transparent 1px),
-      linear-gradient(to bottom, rgba(125, 211, 252, 0.115) 1px, transparent 1px),
-      radial-gradient(120% 85% at 50% -15%, rgba(56, 189, 248, 0.11), rgba(56, 189, 248, 0) 62%),
-      radial-gradient(85% 70% at 10% 105%, rgba(4, 17, 35, 0.62), rgba(4, 17, 35, 0) 70%),
-      radial-gradient(70% 60% at 96% 8%, rgba(4, 17, 35, 0.45), rgba(4, 17, 35, 0) 70%);
+      linear-gradient(to right, rgba(157, 179, 194, 0.038) 1px, transparent 1px),
+      linear-gradient(to bottom, rgba(157, 179, 194, 0.038) 1px, transparent 1px),
+      linear-gradient(to right, rgba(157, 179, 194, 0.070) 1px, transparent 1px),
+      linear-gradient(to bottom, rgba(157, 179, 194, 0.070) 1px, transparent 1px),
+      radial-gradient(58% 44% at 78% 6%, rgba(168, 190, 204, 0.055), rgba(168, 190, 204, 0) 68%),
+      radial-gradient(46% 38% at 12% 88%, rgba(140, 116, 88, 0.055), rgba(140, 116, 88, 0) 70%),
+      radial-gradient(70% 54% at 24% 18%, rgba(6, 14, 20, 0.42), rgba(6, 14, 20, 0) 72%),
+      radial-gradient(64% 50% at 92% 74%, rgba(6, 14, 20, 0.48), rgba(6, 14, 20, 0) 70%);
     background-size:
-      10px 10px, 10px 10px,
-      50px 50px, 50px 50px,
-      250px 250px, 250px 250px,
-      100% 100%, 100% 100%, 100% 100%;
+      12px 12px, 12px 12px,
+      96px 96px, 96px 96px,
+      100% 100%, 100% 100%, 100% 100%, 100% 100%;
   }
 
   .bp-grain {
     position: absolute;
     inset: 0;
-    opacity: 0.06;
+    opacity: 0.085;
     mix-blend-mode: overlay;
-    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='240' height='240'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='240' height='240' filter='url(%23n)'/%3E%3C/svg%3E");
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='260' height='260'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='260' height='260' filter='url(%23n)'/%3E%3C/svg%3E");
   }
 
   .bp-vignette {
     position: absolute;
     inset: 0;
-    background: radial-gradient(118% 96% at 50% 44%, rgba(11, 31, 63, 0) 44%, rgba(4, 17, 35, 0.74) 100%);
+    background: radial-gradient(112% 92% at 50% 40%, rgba(17, 29, 39, 0) 38%, rgba(6, 13, 19, 0.82) 100%);
   }
 
   /* --- Drafting linework --- */
+  .bp-defs {
+    position: absolute;
+    width: 0;
+    height: 0;
+    overflow: hidden;
+  }
+
   .bp-ink {
     position: absolute;
   }
@@ -107,37 +127,43 @@
     height: auto;
   }
 
+  /* Geometry only — <text> children are deliberately left out. */
+  .bp-ink svg > g {
+    filter: url(#bp-hand);
+  }
+
   .bp-ink--plan {
     top: -10vh;
     right: -19vw;
     width: 78vw;
-    opacity: 0.14;
+    opacity: 0.075;
   }
 
   .bp-ink--elev {
     bottom: -6vh;
     left: -13vw;
     width: 68vw;
-    opacity: 0.12;
+    opacity: 0.065;
   }
 
   .bp-pl {
     fill: none;
-    stroke: #7dd3fc;
-    stroke-linecap: square;
+    stroke: #9db3c2;
+    stroke-linecap: round;
+    stroke-linejoin: round;
   }
   /* Wall poche: filled band plus its outline, the way a real plan reads. */
   .bp-poche {
-    fill: #7dd3fc;
+    fill: #9db3c2;
     fill-opacity: 0.17;
-    stroke: #7dd3fc;
+    stroke: #9db3c2;
     stroke-opacity: 0.9;
     stroke-width: 1.2;
   }
 
   /* Flat massing tone: separates roof / porch-roof / wall planes in elevation. */
   .bp-tone {
-    fill: #7dd3fc;
+    fill: #9db3c2;
     fill-opacity: 0.055;
     stroke: none;
   }
@@ -148,11 +174,11 @@
   .bp-wd { stroke-width: 0.85; stroke-opacity: 0.5; }
   .bp-wh { stroke-width: 1; stroke-opacity: 0.42; stroke-dasharray: 8 6; }
   .bp-wc { stroke-width: 0.85; stroke-opacity: 0.38; stroke-dasharray: 20 5 4 5; }
-  .bp-fl { fill: #7dd3fc; fill-opacity: 0.5; stroke: none; }
+  .bp-fl { fill: #9db3c2; fill-opacity: 0.5; stroke: none; }
 
   .bp-ink svg text {
     font-family: 'JetBrains Mono', SFMono-Regular, Menlo, Monaco, Consolas, monospace;
-    fill: #bae6fd;
+    fill: #9db3c2;
   }
   .bp-tr { font-size: 13px; letter-spacing: 0.16em; fill-opacity: 0.9; }
   .bp-ts { font-size: 9.5px; letter-spacing: 0.12em; fill-opacity: 0.55; }
@@ -164,10 +190,9 @@
   @media (max-width: 767px) {
     .bp-grid {
       background-size:
-        8px 8px, 8px 8px,
-        40px 40px, 40px 40px,
-        120px 120px, 120px 120px,
-        100% 100%, 100% 100%, 100% 100%;
+        9px 9px, 9px 9px,
+        63px 63px, 63px 63px,
+        100% 100%, 100% 100%, 100% 100%, 100% 100%;
     }
 
     .bp-ink--elev {
@@ -179,7 +204,7 @@
       right: auto;
       left: -55vw;
       width: 210vw;
-      opacity: 0.11;
+      opacity: 0.06;
     }
   }
 </style>
