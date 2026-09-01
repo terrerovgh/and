@@ -1,10 +1,15 @@
 // Cloudflare Pages Function — POST /api/lead
 // Turns a wizard submission into an AI-written summary and emails it to the
 // business owner, so the site never has to publish a personal phone number.
+//
+// Email is sent via the Resend HTTP API (env.RESEND_API_KEY, a Pages
+// secret) rather than Cloudflare's native Email Routing "send_email"
+// binding — Cloudflare Pages Functions do not support that binding
+// (Workers-only); `wrangler pages deploy` rejects the config outright.
 
 interface Env {
   AI: any;
-  SEND_EMAIL: any;
+  RESEND_API_KEY?: string;
 }
 
 interface LeadPayload {
@@ -19,13 +24,11 @@ interface LeadPayload {
 }
 
 // TEMPORARY: allneedsdiscount.com is not yet a Cloudflare zone on this
-// account (only terrerov.com has Email Routing enabled), and
-// allneedsdiscount1@gmail.com is still pending verification as a Email
-// Routing destination address. Both the sender domain and the destination
-// below must match wrangler.jsonc's `send_email` binding, or the Pages
-// deploy fails validation. Switch both back once allneedsdiscount.com is
-// connected and allneedsdiscount1@gmail.com is verified.
-const SENDER_ADDRESS = 'leads@terrerov.com';
+// account, so Resend has nothing on that domain to verify against yet.
+// Sending from terrerov.com (already an active zone) to the owner's known
+// address until the real domain and business inbox are wired up — see
+// DEPLOY.md.
+const SENDER_ADDRESS = 'All Needs Discount Website <leads@terrerov.com>';
 const BUSINESS_ADDRESS = 'terrerov@gmail.com';
 
 function json(body: unknown, status = 200): Response {
@@ -97,23 +100,30 @@ async function sendLeadEmail(
   env: Env,
   lead: { summary: string; rawDetails: string; name: string; email: string; phone?: string; lang: 'en' | 'es' }
 ) {
-  const { EmailMessage } = await import('cloudflare:email');
-  const { createMimeMessage } = await import('mimetext');
+  if (!env.RESEND_API_KEY) {
+    throw new Error('RESEND_API_KEY not configured');
+  }
 
   const subject = lead.lang === 'es'
     ? `Nueva solicitud de cotización — ${lead.name}`
     : `New quote request — ${lead.name}`;
 
-  const msg = createMimeMessage();
-  msg.setSender({ name: 'All Needs Discount Website', addr: SENDER_ADDRESS });
-  msg.setRecipient(BUSINESS_ADDRESS);
-  msg.setSubject(subject);
-  msg.setHeader('Reply-To', lead.email);
-  msg.addMessage({
-    contentType: 'text/plain',
-    data: `${lead.summary}\n\n---\nRaw submission:\n${lead.rawDetails}`,
+  const res = await fetch('https://api.resend.com/emails', {
+    method: 'POST',
+    headers: {
+      authorization: `Bearer ${env.RESEND_API_KEY}`,
+      'content-type': 'application/json',
+    },
+    body: JSON.stringify({
+      from: SENDER_ADDRESS,
+      to: [BUSINESS_ADDRESS],
+      reply_to: lead.email,
+      subject,
+      text: `${lead.summary}\n\n---\nRaw submission:\n${lead.rawDetails}`,
+    }),
   });
 
-  const message = new EmailMessage(SENDER_ADDRESS, BUSINESS_ADDRESS, msg.asRaw());
-  await env.SEND_EMAIL.send(message);
+  if (!res.ok) {
+    throw new Error(`Resend API error: ${res.status}`);
+  }
 }

@@ -66,43 +66,42 @@ Astro's `output: 'static'` mode is required.
 The Function does two things:
 
 1. Calls **Workers AI** (`env.AI`) to turn the wizard answers into a short,
-   readable summary.
-2. Emails that summary to the business owner using the **Email Routing
-   "Send Email" binding** (`env.SEND_EMAIL`), replacing the old unreliable
-   `mailto:` form.
+   readable summary. The `ai` binding is declared in `wrangler.jsonc` and
+   needs no setup — it's on by default for Cloudflare accounts.
+2. Emails that summary to the business owner via the **Resend** HTTP API
+   (`env.RESEND_API_KEY`), replacing the old unreliable `mailto:` form.
 
-Both bindings are declared in `wrangler.jsonc`.
+**Why Resend and not Cloudflare's own Email Routing "send_email" binding:**
+that binding is Workers-only. `wrangler pages deploy` rejects it outright
+("Configuration file for Pages projects does not support \"send_email\"")
+— this was tried first and failed the deploy twice before switching to
+Resend.
+
+### One-time setup for email delivery
+
+1. Create a free account at [resend.com](https://resend.com) and generate
+   an API key.
+2. Verify a sending domain in Resend (Domains → Add Domain) so `terrerov.com`
+   — or `allneedsdiscount.com` once that's connected to Cloudflare, see
+   below — can send mail reliably. Resend gives you a few DNS records
+   (SPF/DKIM) to add to the zone; without domain verification Resend can
+   only deliver to the account owner's own address.
+3. Store the key as a Pages secret (never commit it):
+   ```bash
+   npx wrangler pages secret put RESEND_API_KEY --project-name=all-needs-discount
+   ```
+   This applies to the Production environment; without it, `/api/lead`
+   fails safely at the email step and the wizard shows its error state with
+   a `mailto:` fallback link — it will not silently drop leads.
 
 **Current state (temporary):** `allneedsdiscount.com` is not yet a zone on
-this Cloudflare account — only `terrerov.com` has Email Routing enabled, and
-`allneedsdiscount1@gmail.com` is not yet a verified destination address
-there (verification was requested; check that inbox). Until both are true,
-`send_email` in `wrangler.jsonc` and `SENDER_ADDRESS`/`BUSINESS_ADDRESS` in
-`functions/api/lead.ts` are pointed at `leads@terrerov.com` →
-`terrerov@gmail.com` instead, so the Pages deploy validates and leads still
-reach a real inbox.
-
-Once `allneedsdiscount.com` is connected to this account and
-`allneedsdiscount1@gmail.com` is verified, switch both back:
-
-1. **Workers AI** — enabled by default on Cloudflare accounts; no setup
-   needed beyond the `ai` binding already in `wrangler.jsonc`.
-2. **Email Routing** — go to the `allneedsdiscount.com` zone → **Email** →
-   **Email Routing**, enable it (this also adds the required MX/SPF
-   records), then verify `allneedsdiscount1@gmail.com` as a **destination
-   address** if it isn't already.
-3. In `wrangler.jsonc`, change `send_email[0].destination_address` back to
-   `allneedsdiscount1@gmail.com`. In `functions/api/lead.ts`, change
-   `SENDER_ADDRESS` to `leads@allneedsdiscount.com` (does not need to be a
-   real mailbox, just a zone with Email Routing enabled) and
-   `BUSINESS_ADDRESS` back to `allneedsdiscount1@gmail.com`.
-
-If the `send_email` binding ever points at an unverified destination
-address or a domain that isn't a Cloudflare zone on this account, the Pages
-deploy fails outright (this happened once — see git history). Once the
-binding is valid, `/api/lead` still fails safely at runtime if something
-else goes wrong: the wizard shows its error state with a `mailto:` fallback
-link instead of silently dropping the lead.
+this Cloudflare account, so `functions/api/lead.ts` sends from
+`leads@terrerov.com` to `terrerov@gmail.com` (the account owner's address)
+instead of the real business domain/inbox. Once `allneedsdiscount.com` is
+connected (see **Custom domain** below) and verified as a sending domain in
+Resend, update `SENDER_ADDRESS` and `BUSINESS_ADDRESS` in
+`functions/api/lead.ts` to `leads@allneedsdiscount.com` and
+`allneedsdiscount1@gmail.com`.
 
 ## Custom domain
 
