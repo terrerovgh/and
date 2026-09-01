@@ -26,11 +26,13 @@ const ADDRESS = {
 };
 const GEO = { lat: 31.03753840584961, lng: -83.19888045988867 };
 const MAPS_URL = `https://www.google.com/maps/search/?api=1&query=${GEO.lat},${GEO.lng}`;
+const descEn = 'Licensed residential remodeling and construction in South Georgia. Remodeling, additions, roofing, painting, flooring, and decks. Based in Ray City, GA, serving Valdosta, Adel, Tifton, Waycross, and nearby South Georgia communities. Request a free estimate online.';
+const descEs = 'Remodelación y construcción residencial con licencia en el sur de Georgia. Remodelación, ampliaciones, techos, pintura, pisos y decks. Con base en Ray City, GA, atendemos Valdosta, Adel, Tifton, Waycross y comunidades cercanas del sur de Georgia. Solicita un estimado gratis en línea.';
 
 const {
   lang = 'en',
   title = `${BUSINESS_NAME} | Remodeling & Construction in South Georgia`,
-  description = 'Licensed residential remodeling and construction in South Georgia. Remodeling, additions, roofing, painting, flooring, and decks. Based in Ray City, GA, serving Valdosta and the region. Request a free estimate online.',
+  description = lang === 'es' ? descEs : descEn,
   path = '/',
   image = OG_IMAGE,
   type = 'website',
@@ -48,9 +50,6 @@ const esUrl = new URL(`/es${bare}`, SITE_URL).toString();
 
 const titleEn = `${BUSINESS_NAME} | Remodeling & Construction in South Georgia`;
 const titleEs = `${BUSINESS_NAME} | Remodelación y Construcción en el Sur de Georgia`;
-const descEn = 'Licensed residential remodeling and construction in South Georgia. Remodeling, additions, roofing, painting, flooring, and decks. Based in Ray City, GA, serving Valdosta and the region. Request a free estimate online.';
-const descEs = 'Remodelación y construcción residencial con licencia en el sur de Georgia. Remodelación, ampliaciones, techos, pintura, pisos y decks. Con base en Ray City, GA, sirviendo Valdosta y la región. Solicita un estimado gratis en línea.';
-
 const organizationLd = {
   '@context': 'https://schema.org',
   '@type': 'GeneralContractor',
@@ -81,15 +80,15 @@ const organizationLd = {
   areaServed: [
     { '@type': 'City', name: 'Ray City' },
     { '@type': 'City', name: 'Valdosta' },
-    { '@type': 'City', name: 'Hahira' },
-    { '@type': 'City', name: 'Lake Park' },
-    { '@type': 'City', name: 'Quitman' },
     { '@type': 'City', name: 'Adel' },
+    { '@type': 'City', name: 'Hahira' },
+    { '@type': 'City', name: 'Lakeland' },
+    { '@type': 'City', name: 'Nashville' },
     { '@type': 'City', name: 'Tifton' },
     { '@type': 'City', name: 'Moultrie' },
-    { '@type': 'City', name: 'Thomasville' },
-    { '@type': 'City', name: 'Tallahassee' },
-    { '@type': 'City', name: 'Nashville' },
+    { '@type': 'City', name: 'Lenox' },
+    { '@type': 'City', name: 'Milan' },
+    { '@type': 'City', name: 'Waycross' },
   ],
   makesOffer: [
     {

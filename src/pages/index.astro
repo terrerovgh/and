@@ -11,7 +11,7 @@ import { rentals } from '../data/rentals';
 const services = [
   {
     title: 'Remodeling',
-    description: 'Whole-home and single-room renovations in Valdosta, Ray City, and across South Georgia. Kitchens, bathrooms, and living spaces built around how you actually live.',
+    description: 'Whole-home and single-room renovations throughout our South Georgia service area, from Ray City and Valdosta to Adel, Tifton, and Waycross. Kitchens, bathrooms, and living spaces built around how you actually live.',
   },
   {
     title: 'Additions',
@@ -36,8 +36,8 @@ const services = [
 ];
 
 const area = [
-  'Ray City', 'Valdosta', 'Hahira', 'Lake Park', 'Quitman', 'Adel',
-  'Tifton', 'Moultrie', 'Thomasville', 'Tallahassee', 'Nashville',
+  'Ray City', 'Valdosta', 'Adel', 'Hahira', 'Lakeland', 'Nashville',
+  'Tifton', 'Moultrie', 'Lenox', 'Milan', 'Waycross',
 ];
 
 const faqs = [
@@ -51,7 +51,7 @@ const faqs = [
   },
   {
     question: 'What areas do you serve?',
-    answer: 'We are based in Ray City, GA and serve Valdosta, Hahira, Lake Park, Quitman, Adel, Tifton, Moultrie, Thomasville, Nashville, and the surrounding South Georgia region.',
+    answer: 'Our service area includes Ray City, Valdosta, Adel, Hahira, Lakeland, Nashville, Tifton, Moultrie, Lenox, Milan, and Waycross, along with nearby South Georgia communities.',
   },
   {
     question: 'Who will work on my project?',
@@ -91,7 +91,7 @@ const faqLd = {
 <Layout
   lang="en"
   title="All Needs Discount LLC | Remodeling & Construction in South Georgia"
-  description="Licensed residential remodeling and construction serving Ray City, Valdosta, and South Georgia. Remodeling, additions, roofing, painting, flooring, and decks. Request a free estimate online."
+  description="Licensed residential remodeling and construction based in Ray City, serving Valdosta, Adel, Tifton, Waycross, and nearby South Georgia communities. Remodeling, additions, roofing, painting, flooring, and decks. Request a free estimate online."
   path="/"
 >
   <Header lang="en" currentPath="/" />
@@ -180,7 +180,7 @@ const faqLd = {
       id="rentals"
       eyebrow="Equipment Rental"
       title="Rent the machine, skip the wait."
-      subtitle="Beyond the trades, we rent out our own equipment. Two units available now, both late-model and shop-maintained, ready to work in the Valdosta area."
+      subtitle="Beyond the trades, we rent out our own equipment. Two units available now, both late-model and shop-maintained, ready to work throughout our South Georgia service area."
     >
       <div class="grid gap-5 sm:grid-cols-2" role="list">
         {rentals.map((rental, i) => (
@@ -202,7 +202,7 @@ const faqLd = {
       id="area"
       eyebrow="Service Area"
       title="South Georgia and beyond."
-      subtitle="Based in Ray City, GA, we travel for the right job. If you are not sure whether you are in range, just ask."
+      subtitle="Based in Ray City, GA, we serve homeowners across South Georgia, including Valdosta, Adel, Hahira, Lakeland, Nashville, Tifton, Moultrie, Lenox, Milan, and Waycross."
     >
       <ul class="flex flex-wrap gap-3" aria-label="Cities served in South Georgia">
         {area.map(city => (

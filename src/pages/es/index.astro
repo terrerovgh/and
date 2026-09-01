@@ -11,7 +11,7 @@ import { rentals } from '../../data/rentals';
 const services = [
   {
     title: 'Remodelación',
-    description: 'Renovaciones de casa completa o por habitación en Valdosta, Ray City y todo el sur de Georgia. Cocinas, baños y áreas sociales diseñadas para cómo vives realmente.',
+    description: 'Renovaciones de casa completa o por habitación en toda nuestra zona de servicio del sur de Georgia, desde Ray City y Valdosta hasta Adel, Tifton y Waycross. Cocinas, baños y áreas sociales diseñadas para cómo vives realmente.',
   },
   {
     title: 'Ampliaciones',
@@ -36,8 +36,8 @@ const services = [
 ];
 
 const area = [
-  'Ray City', 'Valdosta', 'Hahira', 'Lake Park', 'Quitman', 'Adel',
-  'Tifton', 'Moultrie', 'Thomasville', 'Tallahassee', 'Nashville',
+  'Ray City', 'Valdosta', 'Adel', 'Hahira', 'Lakeland', 'Nashville',
+  'Tifton', 'Moultrie', 'Lenox', 'Milan', 'Waycross',
 ];
 
 const faqs = [
@@ -51,7 +51,7 @@ const faqs = [
   },
   {
     question: '¿Qué zonas atienden?',
-    answer: 'Estamos en Ray City, GA y atendemos Valdosta, Hahira, Lake Park, Quitman, Adel, Tifton, Moultrie, Thomasville, Nashville y toda la región del sur de Georgia.',
+    answer: 'Nuestra área de servicio incluye Ray City, Valdosta, Adel, Hahira, Lakeland, Nashville, Tifton, Moultrie, Lenox, Milan y Waycross, además de comunidades cercanas del sur de Georgia.',
   },
   {
     question: '¿Quién trabaja en mi proyecto?',
@@ -91,7 +91,7 @@ const faqLd = {
 <Layout
   lang="es"
   title="All Needs Discount LLC | Remodelación y Construcción en el Sur de Georgia"
-  description="Remodelación y construcción residencial con licencia en Ray City, Valdosta y el sur de Georgia. Remodelación, ampliaciones, techos, pintura, pisos y decks. Solicita un estimado gratis en línea."
+  description="Remodelación y construcción residencial con licencia, con base en Ray City, atendiendo Valdosta, Adel, Tifton, Waycross y comunidades cercanas del sur de Georgia. Remodelación, ampliaciones, techos, pintura, pisos y decks. Solicita un estimado gratis en línea."
   path="/es/"
 >
   <Header lang="es" currentPath="/es/" />
@@ -180,7 +180,7 @@ const faqLd = {
       id="rentals"
       eyebrow="Renta de Equipos"
       title="Renta la máquina, sin esperas."
-      subtitle="Además de los oficios, rentamos nuestro propio equipo. Dos unidades disponibles ahora, prácticamente nuevas y mantenidas en taller, listas para trabajar en el área de Valdosta."
+      subtitle="Además de los oficios, rentamos nuestro propio equipo. Dos unidades disponibles ahora, prácticamente nuevas y mantenidas en taller, listas para trabajar en toda nuestra zona de servicio del sur de Georgia."
     >
       <div class="grid gap-5 sm:grid-cols-2" role="list">
         {rentals.map((rental, i) => (
@@ -202,7 +202,7 @@ const faqLd = {
       id="area"
       eyebrow="Área de servicio"
       title="Sur de Georgia y más allá."
-      subtitle="Con base en Ray City, GA, viajamos por el proyecto adecuado. Si no sabes si estás dentro del rango, solo pregunta."
+      subtitle="Con base en Ray City, GA, atendemos a propietarios en todo el sur de Georgia, incluyendo Valdosta, Adel, Hahira, Lakeland, Nashville, Tifton, Moultrie, Lenox, Milan y Waycross."
     >
       <ul class="flex flex-wrap gap-3" aria-label="Ciudades atendidas en el sur de Georgia">
         {area.map(city => (
